@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio - Inspired by Forrest Knight</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="canvas-container"></div>
+    <div id="side-nav">
+        <div class="nav-bullet" data-section="#home"></div>
+        <div class="nav-bullet" data-section="#about"></div>
+        <div class="nav-bullet" data-section="#testimonials"></div>
+        <div class="nav-bullet" data-section="#portfolio"></div>
+        <div class="nav-bullet" data-section="#skills"></div>
+        <div class="nav-bullet" data-section="#experience"></div>
+        <div class="nav-bullet" data-section="#education"></div>
+        <div class="nav-bullet" data-section="#contact"></div>
+    </div>
+    <div id="content">
+        <!-- Hero Section -->
+        <section id="home">
+            <div class="fk-logo">FK</div>
+            <div class="hero-content">
+                <h1>Alex Doe</h1>
+                <p class="role">Software Developer</p>
+                <p class="tagline">I am a <span id="animated-role">[full stack..]</span></p>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about">
+            <h2>About Me</h2>
+            <div class="about-container">
+                <div class="about-image tiltable">
+                    <div class="image-placeholder">Image Placeholder</div>
+                </div>
+                <div class="about-content tiltable">
+                    <h3>Who I Am</h3>
+                    <p>
+                        I’m Alex Doe, a passionate software developer with a knack for creating innovative solutions. With a background in computer science and years of experience in full-stack development, I specialize in building scalable web applications, conducting research in AI, and designing user-friendly interfaces. When I’m not coding, you can find me exploring the cosmos through my telescope or working on open-source projects that make a difference.
+                    </p>
+                    <a href="path/to/resume.pdf" download class="resume-button">Download Resume</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials">
+            <h2>Testimonials</h2>
+            <div class="testimonials-container">
+                <div class="testimonial-card">
+                    <p>"Alex is an exceptional developer with a keen eye for detail. His work on our project was outstanding!"</p>
+                    <h4>Jane Smith, Project Manager</h4>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Working with Alex was a pleasure. His innovative solutions and dedication made a huge impact."</p>
+                    <h4>John Doe, Tech Lead</h4>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Alex’s ability to tackle complex problems with creativity is unmatched. Highly recommend!"</p>
+                    <h4>Emily Johnson, Client</h4>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Section -->
+        <section id="portfolio">
+            <h2>Portfolio</h2>
+            <div class="project-grid">
+                <div class="project-card">
+                    <div class="project-details">
+                        <h3>Open Source Computer Science Repo</h3>
+                        <p>
+                            A GitHub repo with over 17,000 stars containing a curated list of free online courses from reputable universities that satisfy undergraduate computer science requirements.
+                        </p>
+                        <div class="project-meta">
+                            <span>Video discussing this curriculum</span>
+                            <span>5 years ago</span>
+                            <span>Computer Science</span>
+                        </div>
+                    </div>
+                    <div class="project-stats">
+                        <span>⭐ 17,000 stars</span>
+                    </div>
+                </div>
+            </div>
+            <div class="dev-notes">Dev Notes</div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills">
+            <h2>Skills</h2>
+            <ul>
+                <li>JavaScript (ES6+)</li>
+                <li>Three.js</li>
+                <li>React</li>
+                <li>Node.js</li>
+                <li>CSS/SCSS</li>
+            </ul>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience">
+            <h2>Experience</h2>
+            <div class="experience-list">
+                <div class="experience-item">
+                    <h3>YouTube Content Creator</h3>
+                    <p class="details">Self Employed | 2016 - Present</p>
+                    <p class="description">
+                        Built a subscriber base of over 500,000 subscribers by creating video content to help visually appealing programming videos that have garnered 30,000 views.
+                        Produced high-quality educational and entertaining videos for clients including Intel, JetBrains, and MicroCenter.
+                    </p>
+                </div>
+                <div class="experience-item">
+                    <h3>Software Developer</h3>
+                    <p class="details">Indie | 2019 - 2023</p>
+                </div>
+                <div class="experience-item">
+                    <h3>Software Engineer</h3>
+                    <p class="details">Prime 3 | 2018 - 2019</p>
+                </div>
+                <div class="experience-item">
+                    <h3>Computer Science</h3>
+                    <p class="details">ODU | 2015 - 2018</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education">
+            <h2>Education</h2>
+            <div class="education-container">
+                <div class="timeline">
+                    <div class="timeline-item" data-location="bd">
+                        <div class="timeline-content">
+                            <h3>BSc in Computer Science</h3>
+                            <p>University of Dhaka, Bangladesh</p>
+                            <p>2016 - 2020</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item" data-location="ca">
+                        <div class="timeline-content">
+                            <h3>MSc in Computer Science</h3>
+                            <p>University of Toronto, Canada</p>
+                            <p>2021 - 2023</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="globe-container"></div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>Email: <a href="mailto:alex.doe@example.com">alex.doe@example.com</a></p>
+            <p>GitHub: <a href="https://github.com/alexdoe" target="_blank">github.com/alexdoe</a></p>
+        </section>
+    </div>
+    <button id="back-to-top" title="Back to Top">↑</button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
