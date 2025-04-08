@@ -20,21 +20,47 @@ const universeMaterial = new THREE.MeshBasicMaterial({
 const universeSphere = new THREE.Mesh(universeGeometry, universeMaterial);
 scene.add(universeSphere);
 
-// Ambient stars (optional, can be removed if universe texture is sufficient)
+// Ambient stars with twinkling effect
 const starCount = 500;
 const stars = new THREE.BufferGeometry();
 const starPositions = new Float32Array(starCount * 3);
+const starOpacities = new Float32Array(starCount);
 for (let i = 0; i < starCount * 3; i += 3) {
     starPositions[i] = (Math.random() - 0.5) * 2000;
     starPositions[i + 1] = (Math.random() - 0.5) * 2000;
     starPositions[i + 2] = (Math.random() - 0.5) * 1000 - 500;
+    starOpacities[i / 3] = Math.random() * 0.5 + 0.5; // Initial opacity
 }
 stars.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
-const starMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 3, transparent: true });
+stars.setAttribute('opacity', new THREE.BufferAttribute(starOpacities, 1));
+const starMaterial = new THREE.ShaderMaterial({
+    uniforms: {
+        time: { value: 0 }
+    },
+    vertexShader: `
+        attribute float opacity;
+        varying float vOpacity;
+        void main() {
+            vOpacity = opacity;
+            vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+            gl_PointSize = 3.0 * (300.0 / -mvPosition.z);
+            gl_Position = projectionMatrix * mvPosition;
+        }
+    `,
+    fragmentShader: `
+        uniform float time;
+        varying float vOpacity;
+        void main() {
+            float twinkle = sin(time * 2.0 + vOpacity * 10.0) * 0.5 + 0.5;
+            gl_FragColor = vec4(1.0, 1.0, 1.0, vOpacity * twinkle);
+        }
+    `,
+    transparent: true
+});
 const starSystem = new THREE.Points(stars, starMaterial);
 scene.add(starSystem);
 
-// Planets with textures
+// Planets with textures and rotation
 const planet1 = new THREE.Mesh(
     new THREE.SphereGeometry(100, 32, 32),
     new THREE.MeshPhongMaterial({
@@ -234,19 +260,19 @@ for (let layer = 0; layer < layerCount; layer++) {
     const starGeometry = new THREE.BufferGeometry();
     const starPositionsLayer = new Float32Array(starCountLayer * 3);
     const starSizes = new Float32Array(starCountLayer);
-    const starOpacities = new Float32Array(starCountLayer);
+    const starOpacitiesLayer = new Float32Array(starCountLayer);
 
     for (let i = 0; i < starCountLayer * 3; i += 3) {
         starPositionsLayer[i] = (Math.random() - 0.5) * 2000; // x
         starPositionsLayer[i + 1] = (Math.random() - 0.5) * 2000; // y
         starPositionsLayer[i + 2] = (Math.random() - 0.5) * 500 - (layer * 100); // z (deeper layers)
         starSizes[i / 3] = Math.random() * 2 + 1; // Random size between 1 and 3
-        starOpacities[i / 3] = Math.random() * 0.5 + 0.5; // Random opacity between 0.5 and 1
+        starOpacitiesLayer[i / 3] = Math.random() * 0.5 + 0.5; // Random opacity between 0.5 and 1
     }
 
     starGeometry.setAttribute('position', new THREE.BufferAttribute(starPositionsLayer, 3));
     starGeometry.setAttribute('size', new THREE.BufferAttribute(starSizes, 1));
-    starGeometry.setAttribute('opacity', new THREE.BufferAttribute(starOpacities, 1));
+    starGeometry.setAttribute('opacity', new THREE.BufferAttribute(starOpacitiesLayer, 1));
 
     const starMaterialLayer = new THREE.ShaderMaterial({
         uniforms: {
@@ -290,6 +316,27 @@ window.addEventListener('mousemove', (event) => {
 
 // Wait for the DOM to load before accessing elements
 window.addEventListener('DOMContentLoaded', () => {
+    // Dark/Light Mode Toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('light-mode');
+        const isLightMode = document.body.classList.contains('light-mode');
+        themeToggle.innerHTML = isLightMode ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        themeToggle.setAttribute('aria-pressed', isLightMode);
+        localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
+    });
+
+    // Load theme from localStorage
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+        document.body.classList.add('light-mode');
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        themeToggle.setAttribute('aria-pressed', 'true');
+    } else {
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        themeToggle.setAttribute('aria-pressed', 'false');
+    }
+
     // Side navigation bullets
     const bullets = document.querySelectorAll('.nav-bullet');
     bullets.forEach(bullet => {
@@ -297,6 +344,10 @@ window.addEventListener('DOMContentLoaded', () => {
             const targetId = bullet.getAttribute('data-section');
             const targetSection = document.querySelector(targetId);
             targetSection.scrollIntoView({ behavior: 'smooth' });
+
+            // Update aria-current for accessibility
+            bullets.forEach(b => b.removeAttribute('aria-current'));
+            bullet.setAttribute('aria-current', 'page');
         });
     });
 
@@ -361,43 +412,43 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Manually defined project data with image URLs
+    // Manually defined project data with image URLs and categories array
     const projects = [
         {
             name: "Game Boy Pokédex",
             description: "A retro-inspired Pokédex web app styled like a classic Game Boy, built with HTML, CSS, and JavaScript.",
             date: "Apr 2025",
-            category: "JavaScript, HTML, CSS, API",
+            categories: ["JavaScript", "HTML/CSS", "API"], // Multiple categories
             stars: 0,
             githubUrl: "https://github.com/DibyaProkash/pokedex",
             liveDemoUrl: "https://dibyaprokash.github.io/pokedex/",
-            imageUrl: "assets/images/projects/project1.png"
+            imageUrl: "assets/images/projects/pokedex1.png"
         },
         {
             name: "Real-time Weather Mobile App",
             description: "A real-time weather mobile app using Kotlin and OpenWeatherMap API.",
             date: "Mar 2025",
-            category: "Kotlin",
+            categories: ["Kotlin", "API"],
             stars: 0,
             githubUrl: "https://github.com/DibyaProkash/weather-mobile-app",
             liveDemoUrl: "",
-            imageUrl: "assets/images/projects/project2.png"
+            imageUrl: "assets/images/projects/weather-app.png"
         },
         {
-            name: "2d Chess Game",
+            name: "2D Chess Game",
             description: "A single-player 2D chess game with AI opponent, built with JavaScript and HTML5 Canvas.",
             date: "Mar 2025",
-            category: "HTML/CSS, JavaScript",
+            categories: ["JavaScript", "HTML/CSS"],
             stars: 0,
             githubUrl: "https://github.com/DibyaProkash/2D-Chess-Game-JS",
             liveDemoUrl: "https://dibyaprokash.github.io/2D-Chess-Game-JS/", 
-            imageUrl: "assets/images/projects/project3.png"
+            imageUrl: "assets/images/projects/2d-chess.png"
         },
         {
             name: "Real-time News App",
             description: "A real-time mobile news application using Kotlin and NewsAPI, with a focus on responsive design.",
             date: "Mar 2025",
-            category: "Kotlin, API",
+            categories: ["Kotlin", "API"],
             stars: 0,
             githubUrl: "https://github.com/DibyaProkash/TheNewsApp",
             liveDemoUrl: "", // No live demo available
@@ -407,7 +458,7 @@ window.addEventListener('DOMContentLoaded', () => {
             name: "Space Invader App",
             description: "A retro-style Space Invader game built with JavaScript and HTML5 Canvas.",
             date: "Mar 2025",
-            category: "HTML/CSS, JavaScript",
+            categories: ["JavaScript", "HTML/CSS"],
             stars: 0,
             githubUrl: "https://github.com/DibyaProkash/Space-Invader-App-Demo-JS",
             liveDemoUrl: "https://dibyaprokash.github.io/Space-Invader-App-Demo-JS/",
@@ -437,9 +488,9 @@ window.addEventListener('DOMContentLoaded', () => {
     const sliderControls = document.createElement('div');
     sliderControls.className = 'slider-controls';
     sliderControls.innerHTML = `
-        <button class="slider-button prev">Prev</button>
-        <button class="play-pause-button">Pause</button>
-        <button class="slider-button next">Next</button>
+        <button class="slider-button prev" aria-label="Previous project">Prev</button>
+        <button class="play-pause-button" aria-label="Pause or play slideshow">Pause</button>
+        <button class="slider-button next" aria-label="Next project">Next</button>
     `;
     projectSlider.appendChild(sliderControls);
 
@@ -452,6 +503,28 @@ window.addEventListener('DOMContentLoaded', () => {
     let isPlaying = true;
     let slideInterval;
     let previousSlide = 0; // Track the previous slide to determine sliding direction
+    let visibleProjects = [...projects]; // Track currently visible projects after filtering
+
+    // Dynamically generate dropdown options based on unique categories
+    const categoryFilter = document.getElementById('category-filter');
+    const allCategories = new Set();
+    projects.forEach(project => {
+        project.categories.forEach(category => allCategories.add(category));
+    });
+
+    // Add "All" option
+    const allOption = document.createElement('option');
+    allOption.value = 'all';
+    allOption.textContent = 'All';
+    categoryFilter.appendChild(allOption);
+
+    // Add other categories in alphabetical order
+    Array.from(allCategories).sort().forEach(category => {
+        const option = document.createElement('option');
+        option.value = category;
+        option.textContent = category;
+        categoryFilter.appendChild(option);
+    });
 
     // Function to close the popup
     function closePopup() {
@@ -468,149 +541,227 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Populate portfolio cards with the manual data
-    projects.forEach((project, index) => {
-        const card = document.createElement('div');
-        card.className = 'project-card';
-        card.dataset.index = index;
-        card.innerHTML = `
-            <div class="project-window">
-                <div class="project-title-bar">
-                    <h3>${project.name}</h3>
-                    <div class="window-buttons">
-                        <div class="window-button minimize">-</div>
-                        <div class="window-button extend">↔</div>
-                        <div class="window-button close">X</div>
-                    </div>
-                </div>
-                <div class="project-content">
-                    <div class="project-image">
-                        <img src="${project.imageUrl}" alt="${project.name}">
-                    </div>
-                    <div class="project-details">
-                        <h3>${project.name}</h3>
-                        <p>${project.description}</p>
-                        <div class="project-meta">
-                            <span>${project.date}</span>
-                            <span>${project.category}</span>
-                            <span>⭐ ${project.stars}</span>
-                            <div class="project-links">
-                                <a href="${project.liveDemoUrl || '#'}" class="project-link live-demo ${!project.liveDemoUrl ? 'disabled' : ''}" target="_blank">Live Demo</a>
-                                <a href="${project.githubUrl}" class="project-link github-repo" target="_blank">GitHub Repo</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-        sliderContainer.appendChild(card);
+    // Function to render project cards
+    function renderProjects(projectsToRender) {
+        sliderContainer.innerHTML = ''; // Clear existing cards
+        sliderDots.innerHTML = ''; // Clear existing dots
 
-        // Add pagination dot
-        const dot = document.createElement('div');
-        dot.className = 'dot';
-        dot.dataset.index = index;
-        sliderDots.appendChild(dot);
-        dot.addEventListener('click', () => {
-            if (activeExpandedCard) return; // Prevent interaction if a popup is open
-            stopAutoplay();
-            previousSlide = currentSlide;
-            currentSlide = parseInt(dot.dataset.index);
-            updateSlider();
-            if (isPlaying) startAutoplay();
-        });
+        if (projectsToRender.length === 0) {
+            const noProjectsMessage = document.createElement('div');
+            noProjectsMessage.className = 'no-projects-message';
+            noProjectsMessage.style.color = '#ffffff';
+            noProjectsMessage.style.fontSize = '1.5em';
+            noProjectsMessage.style.textAlign = 'center';
+            noProjectsMessage.style.height = '500px'; // Match card height
+            noProjectsMessage.style.display = 'flex';
+            noProjectsMessage.style.alignItems = 'center';
+            noProjectsMessage.style.justifyContent = 'center';
+            noProjectsMessage.textContent = 'No projects found in this category.';
+            sliderContainer.appendChild(noProjectsMessage);
+            return;
+        }
 
-        // Add functionality to window buttons
-        const projectContent = card.querySelector('.project-content');
-        const minimizeButton = card.querySelector('.minimize');
-        const extendButton = card.querySelector('.extend');
-        const closeButton = card.querySelector('.close');
-        const projectImage = card.querySelector('.project-image');
-        const projectDetails = card.querySelector('.project-details');
-        let isMinimized = false; // Track the minimized state
-
-        minimizeButton.addEventListener('click', () => {
-            isMinimized = !isMinimized;
-            projectContent.style.display = isMinimized ? 'none' : 'block';
-            console.log(`Minimize clicked: isMinimized = ${isMinimized}, display = ${projectContent.style.display}`);
-        });
-
-        // Function to open the popup
-        function openPopup() {
-            if (popup) {
-                closePopup(); // Close any existing popup
-            }
-
-            stopAutoplay(); // Pause autoplay when opening popup
-
-            // Create a new popup element
-            popup = document.createElement('div');
-            popup.className = 'popup';
-            popup.innerHTML = `
+        projectsToRender.forEach((project, index) => {
+            const card = document.createElement('div');
+            card.className = 'project-card';
+            card.dataset.index = index;
+            card.setAttribute('aria-label', `Project: ${project.name}`);
+            card.innerHTML = `
                 <div class="project-window">
                     <div class="project-title-bar">
                         <h3>${project.name}</h3>
                         <div class="window-buttons">
-                            <div class="window-button close-popup">X</div>
+                            <div class="window-button minimize" aria-label="Minimize project window">-</div>
+                            <div class="window-button extend" aria-label="Expand project details">↔</div>
+                            <div class="window-button close" aria-label="Close project window">X</div>
                         </div>
                     </div>
                     <div class="project-content">
-                        <div class="project-image">
+                        <div class="project-image" role="button" aria-label="Expand project details">
                             <img src="${project.imageUrl}" alt="${project.name}">
                         </div>
-                        <div class="project-details">
+                        <div class="project-details" role="button" aria-label="Expand project details">
                             <h3>${project.name}</h3>
                             <p>${project.description}</p>
+                            <a href="#" class="read-more" aria-label="Read more about ${project.name}">Read More</a>
                             <div class="project-meta">
-                                <span>${project.date}</span>
-                                <span>${project.category}</span>
-                                <span>⭐ ${project.stars}</span>
+                                <div class="meta-info">
+                                    <span><i class="fas fa-calendar-alt" aria-hidden="true"></i> ${project.date}</span>
+                                    <span class="category-badges"><i class="fas fa-tag" aria-hidden="true"></i>
+                                        ${project.categories.map(category => `<span class="category-badge">${category}</span>`).join('')}
+                                    </span>
+                                    <span><i class="fas fa-star" aria-hidden="true"></i> ${project.stars}</span>
+                                </div>
                                 <div class="project-links">
-                                    <a href="${project.liveDemoUrl || '#'}" class="project-link live-demo ${!project.liveDemoUrl ? 'disabled' : ''}" target="_blank">Live Demo</a>
-                                    <a href="${project.githubUrl}" class="project-link github-repo" target="_blank">GitHub Repo</a>
+                                    <a href="${project.liveDemoUrl || '#'}" class="project-link live-demo ${!project.liveDemoUrl ? 'disabled' : ''}" target="_blank" aria-label="View live demo of ${project.name}" ${!project.liveDemoUrl ? 'aria-disabled="true"' : ''}>Live Demo</a>
+                                    <a href="${project.githubUrl}" class="project-link github-repo" target="_blank" aria-label="View GitHub repository for ${project.name}">GitHub Repo</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             `;
-            document.body.appendChild(popup);
+            sliderContainer.appendChild(card);
 
-            // Show the popup and overlay
-            popup.classList.add('active');
-            popupOverlay.classList.add('active');
-            activeExpandedCard = card;
+            // Add pagination dot
+            const dot = document.createElement('div');
+            dot.className = 'dot';
+            dot.dataset.index = index;
+            dot.setAttribute('role', 'button');
+            dot.setAttribute('aria-label', `Go to project ${index + 1}`);
+            sliderDots.appendChild(dot);
+            dot.addEventListener('click', () => {
+                if (activeExpandedCard) return; // Prevent interaction if a popup is open
+                stopAutoplay();
+                previousSlide = currentSlide;
+                currentSlide = parseInt(dot.dataset.index);
+                updateSlider();
+                if (isPlaying) startAutoplay();
+            });
 
-            // Add event listener to close button
-            const closePopupButton = popup.querySelector('.close-popup');
-            closePopupButton.addEventListener('click', closePopup);
+            // Add functionality to window buttons
+            const projectContent = card.querySelector('.project-content');
+            const minimizeButton = card.querySelector('.minimize');
+            const extendButton = card.querySelector('.extend');
+            const closeButton = card.querySelector('.close');
+            const projectImage = card.querySelector('.project-image');
+            const projectDetails = card.querySelector('.project-details');
+            const readMoreLink = card.querySelector('.read-more');
+            let isMinimized = false; // Track the minimized state
 
-            // Add event listener to overlay to close popup when clicking outside
-            popupOverlay.addEventListener('click', closePopup);
+            minimizeButton.addEventListener('click', () => {
+                isMinimized = !isMinimized;
+                projectContent.style.display = isMinimized ? 'none' : 'block';
+                console.log(`Minimize clicked: isMinimized = ${isMinimized}, display = ${projectContent.style.display}`);
+            });
+
+            // Function to open the popup
+            function openPopup() {
+                if (popup) {
+                    closePopup(); // Close any existing popup
+                }
+
+                stopAutoplay(); // Pause autoplay when opening popup
+
+                // Create a new popup element
+                popup = document.createElement('div');
+                popup.className = 'popup';
+                popup.setAttribute('role', 'dialog');
+                popup.setAttribute('aria-label', `Details for ${project.name}`);
+                popup.innerHTML = `
+                    <div class="project-window">
+                        <div class="project-title-bar">
+                            <h3>${project.name}</h3>
+                            <div class="window-buttons">
+                                <div class="window-button close-popup" role="button" aria-label="Close project details">X</div>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <div class="project-image">
+                                <img src="${project.imageUrl}" alt="${project.name}">
+                            </div>
+                            <div class="project-details">
+                                <h3>${project.name}</h3>
+                                <p>${project.description}</p>
+                                <div class="project-meta">
+                                    <div class="meta-info">
+                                        <span><i class="fas fa-calendar-alt" aria-hidden="true"></i> ${project.date}</span>
+                                        <span><i class="fas fa-tag" aria-hidden="true"></i> ${project.categories.join(', ')}</span>
+                                        <span><i class="fas fa-star" aria-hidden="true"></i> ${project.stars}</span>
+                                    </div>
+                                    <div class="project-links">
+                                        <a href="${project.liveDemoUrl || '#'}" class="project-link live-demo ${!project.liveDemoUrl ? 'disabled' : ''}" target="_blank" aria-label="View live demo of ${project.name}" ${!project.liveDemoUrl ? 'aria-disabled="true"' : ''}>Live Demo</a>
+                                        <a href="${project.githubUrl}" class="project-link github-repo" target="_blank" aria-label="View GitHub repository for ${project.name}">GitHub Repo</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(popup);
+
+                // Show the popup and overlay
+                popup.classList.add('active');
+                popupOverlay.classList.add('active');
+                activeExpandedCard = card;
+
+                // Add event listener to close button
+                const closePopupButton = popup.querySelector('.close-popup');
+                closePopupButton.addEventListener('click', closePopup);
+
+                // Add event listener to overlay to close popup when clicking outside
+                popupOverlay.addEventListener('click', closePopup);
+
+                // Focus on the popup for accessibility
+                popup.focus();
+            }
+
+            // Add click listeners to trigger the popup
+            extendButton.addEventListener('click', openPopup);
+            projectImage.addEventListener('click', openPopup);
+            projectDetails.addEventListener('click', openPopup);
+            readMoreLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                openPopup();
+            });
+
+            closeButton.addEventListener('click', () => {
+                card.style.display = 'none';
+                // If the card was in a popup, close the popup
+                if (activeExpandedCard === card) {
+                    closePopup();
+                }
+                // Adjust the slider after removing a card
+                const visibleCards = Array.from(sliderContainer.children).filter(card => card.style.display !== 'none');
+                if (visibleCards.length === 0) {
+                    clearInterval(slideInterval);
+                    sliderDots.innerHTML = ''; // Clear dots if no cards remain
+                    renderProjects(visibleProjects); // Re-render to show "No projects" message if needed
+                    return;
+                }
+                if (currentSlide >= visibleCards.length) {
+                    currentSlide = visibleCards.length - 1;
+                }
+                updateSlider();
+            });
+
+            // Add slide-in animation class after a slight delay
+            setTimeout(() => {
+                card.classList.add('visible');
+            }, index * 200); // Staggered animation
+        });
+    }
+
+    // Simulate loading state
+    setTimeout(() => {
+        const loadingSpinner = projectSlider.querySelector('.loading-spinner');
+        if (loadingSpinner) {
+            loadingSpinner.remove();
+        }
+        renderProjects(projects);
+        updateSlider();
+        startAutoplay();
+    }, 1000); // Simulated 1-second delay
+
+    // Filter projects by category
+    categoryFilter.addEventListener('change', (e) => {
+        const selectedCategory = e.target.value;
+        stopAutoplay();
+        currentSlide = 0;
+        previousSlide = 0;
+
+        if (selectedCategory === 'all') {
+            visibleProjects = [...projects];
+        } else {
+            // Filter projects by checking if the selected category is in the project's categories array
+            visibleProjects = projects.filter(project => 
+                project.categories.includes(selectedCategory)
+            );
         }
 
-        // Add click listeners to trigger the popup
-        extendButton.addEventListener('click', openPopup);
-        projectImage.addEventListener('click', openPopup);
-        projectDetails.addEventListener('click', openPopup);
-
-        closeButton.addEventListener('click', () => {
-            card.style.display = 'none';
-            // If the card was in a popup, close the popup
-            if (activeExpandedCard === card) {
-                closePopup();
-            }
-            // Adjust the slider after removing a card
-            const visibleCards = Array.from(sliderContainer.children).filter(card => card.style.display !== 'none');
-            if (visibleCards.length === 0) {
-                clearInterval(slideInterval);
-                sliderDots.innerHTML = ''; // Clear dots if no cards remain
-                return;
-            }
-            if (currentSlide >= visibleCards.length) {
-                currentSlide = visibleCards.length - 1;
-            }
-            updateSlider();
-        });
+        renderProjects(visibleProjects);
+        updateSlider();
+        if (isPlaying) startAutoplay();
     });
 
     // Slider functionality
@@ -630,7 +781,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
 
         // Calculate the target offset for the slider (card width + margin)
-        const cardWidth = 800; // Card width (600px) + margin (50px on each side)
+        const cardWidth = window.innerWidth <= 768 ? window.innerWidth * 0.95 + 20 : 800; // Card width (700px) + margin (50px on each side), adjusted for mobile
         const targetOffset = -currentSlide * cardWidth;
 
         // Determine sliding direction
@@ -683,7 +834,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 previousSlide = currentSlide;
                 currentSlide++;
                 updateSlider();
-            }, 7000); // Change slide every 7 seconds
+            }, 5000); // Change slide every 5 seconds
         }
     }
 
@@ -715,17 +866,35 @@ window.addEventListener('DOMContentLoaded', () => {
         if (isPlaying) {
             stopAutoplay();
             playPauseButton.textContent = 'Play';
+            playPauseButton.setAttribute('aria-label', 'Play slideshow');
         } else {
             startAutoplay();
             playPauseButton.textContent = 'Pause';
+            playPauseButton.setAttribute('aria-label', 'Pause slideshow');
         }
         isPlaying = !isPlaying;
         console.log('Play/Pause clicked, isPlaying:', isPlaying);
     });
 
-    // Start autoplay initially
-    startAutoplay();
-    updateSlider();
+    // Keyboard navigation for slider
+    document.addEventListener('keydown', (e) => {
+        if (activeExpandedCard) return; // Prevent interaction if a popup is open
+        if (e.key === 'ArrowLeft') {
+            stopAutoplay();
+            previousSlide = currentSlide;
+            currentSlide--;
+            updateSlider();
+            if (isPlaying) startAutoplay();
+        } else if (e.key === 'ArrowRight') {
+            stopAutoplay();
+            previousSlide = currentSlide;
+            currentSlide++;
+            updateSlider();
+            if (isPlaying) startAutoplay();
+        } else if (e.key === 'Escape' && activeExpandedCard) {
+            closePopup();
+        }
+    });
 
     // Back to Top button visibility
     const backToTopButton = document.getElementById('back-to-top');
@@ -745,7 +914,8 @@ window.addEventListener('DOMContentLoaded', () => {
     const viewportHeight = window.innerHeight;
     const documentHeight = document.documentElement.scrollHeight - viewportHeight;
 
-    window.addEventListener('scroll', () => {
+    // Function to update section visibility
+    function updateSectionVisibility() {
         const sections = document.querySelectorAll('section');
         let activeSection = null;
         const scrollY = window.scrollY;
@@ -800,6 +970,11 @@ window.addEventListener('DOMContentLoaded', () => {
         camera.position.z = -200 - easedProgress * 700; // Ranges from -200 to -900
         earth.rotation.y += 0.005;
 
+        // Rotate planets
+        planet1.rotation.y += 0.002;
+        planet2.rotation.y += 0.003;
+        planet3.rotation.y += 0.0015;
+
         // Render the starfield for Testimonials section when visible
         const testimonialsSection = document.querySelector('#testimonials');
         if (testimonialsSection.classList.contains('visible')) {
@@ -849,7 +1024,12 @@ window.addEventListener('DOMContentLoaded', () => {
                 }
             }
         }
-    });
+    }
+
+    // Trigger initial visibility check on page load
+    updateSectionVisibility();
+
+    window.addEventListener('scroll', updateSectionVisibility);
 });
 
 // Animation loop
@@ -865,16 +1045,19 @@ function animate() {
         mixer.update(delta);
     }
 
+    // Update star twinkling effect
+    starMaterial.uniforms.time.value = time;
+
     // Rotate the universe background
     universeSphere.rotation.y += 0.001;
 
     // Animate stars in the main scene
-    const starPositions = starSystem.geometry.attributes.position.array;
+    const starPositionsArray = starSystem.geometry.attributes.position.array;
     for (let i = 0; i < starCount * 3; i += 3) {
-        starPositions[i + 2] += Math.sin(time + i) * 0.05;
-        starPositions[i + 1] += Math.cos(time + i) * 0.03;
-        if (starPositions[i + 2] > 500) starPositions[i + 2] = -500;
-        if (starPositions[i + 1] > 1000) starPositions[i + 1] = -1000;
+        starPositionsArray[i + 2] += Math.sin(time + i) * 0.05;
+        starPositionsArray[i + 1] += Math.cos(time + i) * 0.03;
+        if (starPositionsArray[i + 2] > 500) starPositionsArray[i + 2] = -500;
+        if (starPositionsArray[i + 1] > 1000) starPositionsArray[i + 1] = -1000;
     }
     starSystem.geometry.attributes.position.needsUpdate = true;
 
@@ -914,4 +1097,5 @@ window.addEventListener('resize', () => {
     testimonialsCamera.aspect = window.innerWidth / window.innerHeight;
     testimonialsCamera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
+    updateSlider(); // Update slider on resize to adjust for new card width
 });

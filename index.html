@@ -3,30 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
+    <meta name="description" content="Portfolio of Dibya Prokash Sarkar, a full-stack developer">
+    <title>Dibya's Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" type="image/png" href="assets/images/favicon.ico">
     <link rel="stylesheet" href="styles.css">
-    <!-- Include Anime.js via CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 </head>
-<body>
+<body class="dark-mode">
     <div id="canvas-container"></div>
-    <nav id="side-nav">
-        <div class="nav-bullet" data-section="#home"></div>
-        <div class="nav-bullet" data-section="#about"></div>
-        <div class="nav-bullet" data-section="#testimonials"></div>
-        <div class="nav-bullet" data-section="#portfolio"></div>
-        <div class="nav-bullet" data-section="#skills"></div>
-        <div class="nav-bullet" data-section="#experience"></div>
-        <div class="nav-bullet" data-section="#education"></div>
-        <div class="nav-bullet" data-section="#contact"></div>
-    </nav>
+    <div id="side-nav" role="navigation" aria-label="Section navigation">
+        <div class="nav-bullet active" data-section="#home" role="button" aria-label="Go to Home section"></div>
+        <div class="nav-bullet" data-section="#about" role="button" aria-label="Go to About section"></div>
+        <div class="nav-bullet" data-section="#testimonials" role="button" aria-label="Go to Testimonials section"></div>
+        <div class="nav-bullet" data-section="#portfolio" role="button" aria-label="Go to Portfolio section"></div>
+        <div class="nav-bullet" data-section="#skills" role="button" aria-label="Go to Skills section"></div>
+        <div class="nav-bullet" data-section="#experience" role="button" aria-label="Go to Experience section"></div>
+        <div class="nav-bullet" data-section="#education" role="button" aria-label="Go to Education section"></div>
+        <div class="nav-bullet" data-section="#contact" role="button" aria-label="Go to Contact section"></div>
+    </div>
+    <button id="theme-toggle" title="Toggle Dark/Light Mode" aria-label="Toggle between dark and light mode" aria-pressed="false">
+        <i class="fas fa-moon"></i>
+    </button>
     <div id="content">
         <section id="home">
-            <div class="fk-logo">FK</div>
+            <div class="fk-logo">DIBYA</div>
             <div class="hero-content">
-                <h1>Dibya Prokash Sarkar</h1>
-                <p class="role"><span id="animated-role">[full stack]</span></p>
-                <p class="tagline">Building the future, one line of code at a time.</p>
+                <h1>DIBYA PROKASH SARKAR</h1>
+                <p class="role">I am a <span id="animated-role">[full stack]</span></p>
+                <p class="tagline">Crafting digital experiences with code and creativity.</p>
+            </div>
+            <div class="scroll-indicator">
+                <i class="fas fa-chevron-down"></i>
             </div>
         </section>
         <section id="about">
@@ -37,8 +45,8 @@
                 </div>
                 <div class="about-content">
                     <h3>Who I Am</h3>
-                    <p>I'm a passionate full-stack developer with a love for creating innovative solutions. With a background in computer science and years of experience in web development, I specialize in building responsive, user-friendly applications that solve real-world problems.</p>
-                    <a href="path/to/resume.pdf" class="resume-button">Download Resume</a>
+                    <p>I'm Dibya Prokash Sarkar, a passionate full-stack developer with a love for creating innovative solutions. With expertise in both front-end and back-end technologies, I enjoy building projects that are both functional and visually appealing.</p>
+                    <a href="path/to/resume.pdf" class="resume-button" download aria-label="Download Farhad Khan's resume">Download Resume</a>
                 </div>
             </div>
         </section>
@@ -46,32 +54,48 @@
             <h2>Testimonials</h2>
             <div class="testimonials-container">
                 <div class="testimonial-card">
-                    <p>"Fahim is an exceptional developer who consistently delivers high-quality work. His attention to detail and problem-solving skills are unmatched."</p>
-                    <h4>- John Doe, CEO at TechCorp</h4>
+                    <p>"Farhad is an exceptional developer with a keen eye for detail. His work on our project was outstanding!"</p>
+                    <h4>- John Doe, CEO of TechCorp</h4>
                 </div>
                 <div class="testimonial-card">
-                    <p>"Working with Fahim was a pleasure. He brought our vision to life with creativity and technical expertise."</p>
+                    <p>"Working with Farhad was a pleasure. He delivered a high-quality solution on time and exceeded our expectations."</p>
                     <h4>- Jane Smith, Product Manager</h4>
                 </div>
                 <div class="testimonial-card">
-                    <p>"Fahim's ability to handle complex projects with ease is impressive. Highly recommend him for any development work."</p>
-                    <h4>- Alex Brown, CTO at InnovateTech</h4>
+                    <p>"Farhad's creativity and technical skills are top-notch. He brought our vision to life with his expertise."</p>
+                    <h4>- Alex Brown, Designer</h4>
                 </div>
             </div>
         </section>
         <section id="portfolio">
             <h2>Portfolio</h2>
-            <div id="project-grid" class="project-slider"></div>
-            <div class="dev-notes">More projects coming soon...</div>
+            <div class="portfolio-header">
+                <div class="portfolio-filter">
+                    <label for="category-filter">Filter by Category: </label>
+                    <select id="category-filter" aria-label="Filter projects by category">
+                        <!-- Options will be dynamically generated by app.js -->
+                    </select>
+                </div>
+                <div class="portfolio-links">
+                    <a href="https://dibyaprokash.github.io" class="portfolio-link live-demo" target="_blank" aria-label="View portfolio live demo">Portfolio Live Demo</a>
+                    <a href="https://github.com/DibyaProkash" class="portfolio-link github-repo" target="_blank" aria-label="View portfolio GitHub repository">Portfolio GitHub Repo</a>
+                </div>
+            </div>
+            <div id="project-grid">
+                <div class="loading-spinner">
+                    <i class="fas fa-spinner fa-spin"></i> Loading Projects...
+                </div>
+            </div>
+            <p class="dev-notes">*Dev Notes: Click on the image, description, or "Read More" to expand the project details.</p>
         </section>
         <section id="skills">
             <h2>Skills</h2>
             <ul>
-                <li>JavaScript (ES6+), TypeScript</li>
-                <li>React, Node.js, Express</li>
-                <li>HTML5, CSS3, SASS</li>
-                <li>Python, Django</li>
-                <li>Git, Docker, AWS</li>
+                <li>JavaScript (ES6+)</li>
+                <li>React & Node.js</li>
+                <li>HTML5 & CSS3</li>
+                <li>Python & Django</li>
+                <li>Three.js & WebGL</li>
             </ul>
         </section>
         <section id="experience">
@@ -79,13 +103,13 @@
             <div class="experience-list">
                 <div class="experience-item">
                     <h3>Full Stack Developer at TechCorp</h3>
-                    <p class="details">June 2022 - Present</p>
+                    <p class="details">Jan 2022 - Present</p>
                     <p class="description">Developed and maintained web applications using React and Node.js, improving user engagement by 30%.</p>
                 </div>
                 <div class="experience-item">
-                    <h3>Frontend Developer at InnovateTech</h3>
-                    <p class="details">Jan 2020 - May 2022</p>
-                    <p class="description">Built responsive UI components with React, collaborating with designers to enhance UX.</p>
+                    <h3>Frontend Developer at Innovate Solutions</h3>
+                    <p class="details">Jun 2020 - Dec 2021</p>
+                    <p class="description">Designed responsive UI components with HTML, CSS, and JavaScript, enhancing the user experience.</p>
                 </div>
             </div>
         </section>
@@ -97,14 +121,14 @@
                         <div class="timeline-content">
                             <h3>BSc in Computer Science</h3>
                             <p>University of Dhaka, Bangladesh</p>
-                            <p>2015 - 2019</p>
+                            <p>2016 - 2020</p>
                         </div>
                     </div>
                     <div class="timeline-item" data-location="ca">
                         <div class="timeline-content">
                             <h3>Master's in Software Engineering</h3>
                             <p>University of Toronto, Canada</p>
-                            <p>2020 - 2022</p>
+                            <p>2021 - 2023</p>
                         </div>
                     </div>
                 </div>
@@ -112,15 +136,16 @@
             </div>
         </section>
         <section id="contact">
-            <h2>Contact Me</h2>
-            <p>Email: <a href="mailto:your.email@example.com">your.email@example.com</a></p>
-            <p>LinkedIn: <a href="https://linkedin.com/in/yourprofile" target="_blank">linkedin.com/in/yourprofile</a></p>
-            <p>GitHub: <a href="https://github.com/dibyaprokash" target="_blank">github.com/dibyaprokash</a></p>
+            <h2>Contact</h2>
+            <p>Email: <a href="mailto:dibyaprokash@gmail.com" aria-label="Email Dibya Prokash Sarkar">farhad@example.com</a></p>
+            <p>LinkedIn: <a href="https://www.linkedin.com/in/dibyaprokash/" target="_blank" aria-label="Visit Farhad Khan's LinkedIn profile">farhadkhan</a></p>
+            <p>GitHub: <a href="https://github.com/dibyaprokash" target="_blank" aria-label="Visit Farhad Khan's GitHub profile">farhadkhan</a></p>
         </section>
     </div>
-    <button id="back-to-top">↑</button>
+    <button id="back-to-top" aria-label="Scroll back to top">↑</button>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

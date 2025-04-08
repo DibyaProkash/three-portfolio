@@ -12,7 +12,8 @@ const projects = [
             category: "JavaScript, HTML, CSS, API",
             stars: 0,
             githubUrl: "https://github.com/DibyaProkash/pokedex",
-            liveDemoUrl: "https://dibyaprokash.github.io/pokedex/"
+            liveDemoUrl: "https://dibyaprokash.github.io/pokedex/",
+            imageUrl: "assets/images/projects/project1.png"
         },
         {
             name: "Real-time Weather Mobile App",
@@ -21,7 +22,8 @@ const projects = [
             category: "Kotlin",
             stars: 0,
             githubUrl: "https://github.com/DibyaProkash/weather-mobile-app",
-            liveDemoUrl: ""
+            liveDemoUrl: "",
+            imageUrl: "assets/images/projects/project2.png"
         },
         {
             name: "2d Chess Game",
@@ -30,7 +32,8 @@ const projects = [
             category: "HTML/CSS, JavaScript",
             stars: 0,
             githubUrl: "https://github.com/DibyaProkash/2D-Chess-Game-JS",
-            liveDemoUrl: "https://dibyaprokash.github.io/2D-Chess-Game-JS/"
+            liveDemoUrl: "https://dibyaprokash.github.io/2D-Chess-Game-JS/", 
+            imageUrl: "assets/images/projects/project3.png"
         },
         {
             name: "Real-time News App",
@@ -39,7 +42,8 @@ const projects = [
             category: "Kotlin, API",
             stars: 0,
             githubUrl: "https://github.com/DibyaProkash/TheNewsApp",
-            liveDemoUrl: "" // No live demo available
+            liveDemoUrl: "", // No live demo available
+            imageUrl: "assets/images/projects/project1.png"
         },
         {
             name: "Space Invader App",
@@ -48,6 +52,7 @@ const projects = [
             category: "HTML/CSS, JavaScript",
             stars: 0,
             githubUrl: "https://github.com/DibyaProkash/Space-Invader-App-Demo-JS",
-            liveDemoUrl: "https://dibyaprokash.github.io/Space-Invader-App-Demo-JS/"
+            liveDemoUrl: "https://dibyaprokash.github.io/Space-Invader-App-Demo-JS/",
+            imageUrl: "assets/images/projects/space-invader.png"
         }
-    ];
+];
