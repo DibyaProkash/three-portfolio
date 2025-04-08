@@ -1,0 +1,53 @@
+const githubUsername = 'dibyaprokash'; // Replace with your GitHub username
+const GITHUB_TOKEN = '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'
+const projectGrid = document.getElementById('project-grid');
+const portfolioTimeline = document.getElementById('portfolio-timeline');
+
+
+const projects = [
+        {
+            name: "Game Boy Pokédex",
+            description: "A retro-inspired Pokédex web app styled like a classic Game Boy, built with HTML, CSS, and JavaScript.",
+            date: "Apr 2025",
+            category: "JavaScript, HTML, CSS, API",
+            stars: 0,
+            githubUrl: "https://github.com/DibyaProkash/pokedex",
+            liveDemoUrl: "https://dibyaprokash.github.io/pokedex/"
+        },
+        {
+            name: "Real-time Weather Mobile App",
+            description: "A real-time weather mobile app using Kotlin and OpenWeatherMap API.",
+            date: "Mar 2025",
+            category: "Kotlin",
+            stars: 0,
+            githubUrl: "https://github.com/DibyaProkash/weather-mobile-app",
+            liveDemoUrl: ""
+        },
+        {
+            name: "2d Chess Game",
+            description: "A single-player 2D chess game with AI opponent, built with JavaScript and HTML5 Canvas.",
+            date: "Mar 2025",
+            category: "HTML/CSS, JavaScript",
+            stars: 0,
+            githubUrl: "https://github.com/DibyaProkash/2D-Chess-Game-JS",
+            liveDemoUrl: "https://dibyaprokash.github.io/2D-Chess-Game-JS/"
+        },
+        {
+            name: "Real-time News App",
+            description: "A real-time mobile news application using Kotlin and NewsAPI, with a focus on responsive design.",
+            date: "Mar 2025",
+            category: "Kotlin, API",
+            stars: 0,
+            githubUrl: "https://github.com/DibyaProkash/TheNewsApp",
+            liveDemoUrl: "" // No live demo available
+        },
+        {
+            name: "Space Invader App",
+            description: "A retro-style Space Invader game built with JavaScript and HTML5 Canvas.",
+            date: "Mar 2025",
+            category: "HTML/CSS, JavaScript",
+            stars: 0,
+            githubUrl: "https://github.com/DibyaProkash/Space-Invader-App-Demo-JS",
+            liveDemoUrl: "https://dibyaprokash.github.io/Space-Invader-App-Demo-JS/"
+        }
+    ];
