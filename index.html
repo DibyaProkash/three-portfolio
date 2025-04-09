@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Portfolio of Dibya Prokash Sarkar, a full-stack developer">
+    <meta property="og:title" content="Dibya's Portfolio">
+    <meta property="og:description" content="Portfolio of Dibya Prokash Sarkar, a full-stack developer">
+    <meta property="og:image" content="assets/images/preview-image.png">
+    <meta property="og:url" content="https://dibyaprokash.github.io">
     <title>Dibya's Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=VT323&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -13,7 +17,7 @@
 <body class="dark-mode">
     <div id="canvas-container"></div>
     <div id="side-nav" role="navigation" aria-label="Section navigation">
-        <div class="nav-bullet active" data-section="#home" role="button" aria-label="Go to Home section"></div>
+        <div class="nav-bullet active" data-section="#home" role="button" aria-label="Go to Home section" aria-current="page"></div>
         <div class="nav-bullet" data-section="#about" role="button" aria-label="Go to About section"></div>
         <div class="nav-bullet" data-section="#testimonials" role="button" aria-label="Go to Testimonials section"></div>
         <div class="nav-bullet" data-section="#portfolio" role="button" aria-label="Go to Portfolio section"></div>
@@ -27,7 +31,7 @@
     </button>
     <div id="content">
         <section id="home">
-            <div class="fk-logo">DIBYA</div>
+            <div class="fk-logo" aria-label="Dibya's Logo">DIBYA</div>
             <div class="hero-content">
                 <h1>DIBYA PROKASH SARKAR</h1>
                 <p class="role">I am a <span id="animated-role">[full stack]</span></p>
@@ -46,7 +50,7 @@
                 <div class="about-content">
                     <h3>Who I Am</h3>
                     <p>I'm Dibya Prokash Sarkar, a passionate full-stack developer with a love for creating innovative solutions. With expertise in both front-end and back-end technologies, I enjoy building projects that are both functional and visually appealing.</p>
-                    <a href="path/to/resume.pdf" class="resume-button" download aria-label="Download Farhad Khan's resume">Download Resume</a>
+                    <a href="assets/resume.pdf" class="resume-button" download aria-label="Download Dibya Prokash Sarkar's resume">Download Resume</a>
                 </div>
             </div>
         </section>
@@ -54,15 +58,15 @@
             <h2>Testimonials</h2>
             <div class="testimonials-container">
                 <div class="testimonial-card">
-                    <p>"Farhad is an exceptional developer with a keen eye for detail. His work on our project was outstanding!"</p>
+                    <p>"Dibya Prokash is an exceptional developer with a keen eye for detail. His work on our project was outstanding!"</p>
                     <h4>- John Doe, CEO of TechCorp</h4>
                 </div>
                 <div class="testimonial-card">
-                    <p>"Working with Farhad was a pleasure. He delivered a high-quality solution on time and exceeded our expectations."</p>
+                    <p>"Working with Dibya Prokash was a pleasure. He delivered a high-quality solution on time and exceeded our expectations."</p>
                     <h4>- Jane Smith, Product Manager</h4>
                 </div>
                 <div class="testimonial-card">
-                    <p>"Farhad's creativity and technical skills are top-notch. He brought our vision to life with his expertise."</p>
+                    <p>"Dibya Prokash's creativity and technical skills are top-notch. He brought our vision to life with his expertise."</p>
                     <h4>- Alex Brown, Designer</h4>
                 </div>
             </div>
@@ -92,24 +96,24 @@
             <h2>Skills</h2>
             <ul>
                 <li>JavaScript (ES6+)</li>
-                <li>React & Node.js</li>
                 <li>HTML5 & CSS3</li>
-                <li>Python & Django</li>
+                <li>Kotlin</li>
                 <li>Three.js & WebGL</li>
+                <li>APIs (e.g., OpenWeatherMap, NewsAPI)</li>
             </ul>
         </section>
         <section id="experience">
             <h2>Experience</h2>
             <div class="experience-list">
                 <div class="experience-item">
-                    <h3>Full Stack Developer at TechCorp</h3>
-                    <p class="details">Jan 2022 - Present</p>
-                    <p class="description">Developed and maintained web applications using React and Node.js, improving user engagement by 30%.</p>
+                    <h3>Full Stack Developer (Freelance)</h3>
+                    <p class="details">Jan 2023 - Present</p>
+                    <p class="description">Developed web and mobile applications, including a Game Boy Pokédex web app and a real-time weather mobile app, using JavaScript, HTML/CSS, Kotlin, and APIs.</p>
                 </div>
                 <div class="experience-item">
-                    <h3>Frontend Developer at Innovate Solutions</h3>
-                    <p class="details">Jun 2020 - Dec 2021</p>
-                    <p class="description">Designed responsive UI components with HTML, CSS, and JavaScript, enhancing the user experience.</p>
+                    <h3>Frontend Developer (Internship)</h3>
+                    <p class="details">Jun 2022 - Dec 2022</p>
+                    <p class="description">Collaborated on building responsive UI components for web applications using JavaScript, HTML, and CSS, enhancing user experience.</p>
                 </div>
             </div>
         </section>
@@ -136,10 +140,49 @@
             </div>
         </section>
         <section id="contact">
-            <h2>Contact</h2>
-            <p>Email: <a href="mailto:dibyaprokash@gmail.com" aria-label="Email Dibya Prokash Sarkar">farhad@example.com</a></p>
-            <p>LinkedIn: <a href="https://www.linkedin.com/in/dibyaprokash/" target="_blank" aria-label="Visit Farhad Khan's LinkedIn profile">farhadkhan</a></p>
-            <p>GitHub: <a href="https://github.com/dibyaprokash" target="_blank" aria-label="Visit Farhad Khan's GitHub profile">farhadkhan</a></p>
+            <h2>Contact Me</h2>
+            <p class="contact-intro">Feel free to contact me.</p>
+            <div class="contact-container">
+                <div class="contact-social">
+                    <div class="contact-info">
+                        <div class="contact-detail">
+                            <i class="fas fa-envelope"></i>
+                            <span>Email</span>
+                            <p>dibyaprokash@gmail.com</p>
+                        </div>
+                        <div class="contact-detail">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Location</span>
+                            <p>Dhaka, Bangladesh</p>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/dibyaprokash/" target="_blank" class="social-icon linkedin" aria-label="Visit Dibya Prokash Sarkar's LinkedIn profile">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://github.com/dibyaprokash" target="_blank" class="social-icon github" aria-label="Visit Dibya Prokash Sarkar's GitHub profile">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.instagram.com/dibyaprokash/" target="_blank" class="social-icon instagram" aria-label="Visit Dibya Prokash Sarkar's Instagram profile">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                <form id="contact-form" action="https://formspree.io/f/mldjoqrw" method="POST" class="contact-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="Your name" required aria-label="Your name">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Your email" required aria-label="Your email address">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" name="message" placeholder="Your message" rows="5" required aria-label="Your message"></textarea>
+                    </div>
+                    <button type="submit" class="submit-button">SEND MESSAGE</button>
+                </form>
+            </div>
         </section>
     </div>
     <button id="back-to-top" aria-label="Scroll back to top">↑</button>

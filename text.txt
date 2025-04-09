@@ -56,3 +56,6 @@ const projects = [
             imageUrl: "assets/images/projects/space-invader.png"
         }
 ];
+
+
+<form id="contact-form" action="https://formspree.io/f/mldjoqrw" method="POST" class="contact-form">

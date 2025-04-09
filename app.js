@@ -1,3 +1,6 @@
+// Define time in the global scope
+let time = 0;
+
 // Scene setup for main background
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
@@ -314,6 +317,70 @@ window.addEventListener('mousemove', (event) => {
     targetCameraX = mouse.x * 200;
 });
 
+// Define slider-related variables in the global scope
+let sliderContainer;
+let currentSlide = 0;
+let isPlaying = true;
+let slideInterval;
+let previousSlide = 0; // Track the previous slide to determine sliding direction
+let visibleProjects;
+let activeExpandedCard = null; // Track the card associated with the popup
+let popup = null;
+
+// Manually defined project data with image URLs and categories array
+const projects = [
+    {
+        name: "Game Boy Pokédex",
+        description: "A retro-inspired Pokédex web app styled like a classic Game Boy, built with HTML, CSS, and JavaScript.",
+        date: "Apr 2025",
+        categories: ["JavaScript", "HTML/CSS", "API"], // Multiple categories
+        stars: 0,
+        githubUrl: "https://github.com/DibyaProkash/pokedex",
+        liveDemoUrl: "https://dibyaprokash.github.io/pokedex/",
+        imageUrl: "assets/images/projects/pokedex1.png"
+    },
+    {
+        name: "Real-time Weather Mobile App",
+        description: "A real-time weather mobile app using Kotlin and OpenWeatherMap API.",
+        date: "Mar 2025",
+        categories: ["Kotlin", "API"],
+        stars: 0,
+        githubUrl: "https://github.com/DibyaProkash/weather-mobile-app",
+        liveDemoUrl: "",
+        imageUrl: "assets/images/projects/weather-app.png"
+    },
+    {
+        name: "2D Chess Game",
+        description: "A single-player 2D chess game with AI opponent, built with JavaScript and HTML5 Canvas.",
+        date: "Mar 2025",
+        categories: ["JavaScript", "HTML/CSS"],
+        stars: 0,
+        githubUrl: "https://github.com/DibyaProkash/2D-Chess-Game-JS",
+        liveDemoUrl: "https://dibyaprokash.github.io/2D-Chess-Game-JS/", 
+        imageUrl: "assets/images/projects/2d-chess.png"
+    },
+    {
+        name: "Real-time News App",
+        description: "A real-time mobile news application using Kotlin and NewsAPI, with a focus on responsive design.",
+        date: "Mar 2025",
+        categories: ["Kotlin", "API"],
+        stars: 0,
+        githubUrl: "https://github.com/DibyaProkash/TheNewsApp",
+        liveDemoUrl: "", // No live demo available
+        imageUrl: "assets/images/projects/project1.png"
+    },
+    {
+        name: "Space Invader App",
+        description: "A retro-style Space Invader game built with JavaScript and HTML5 Canvas.",
+        date: "Mar 2025",
+        categories: ["JavaScript", "HTML/CSS"],
+        stars: 0,
+        githubUrl: "https://github.com/DibyaProkash/Space-Invader-App-Demo-JS",
+        liveDemoUrl: "https://dibyaprokash.github.io/Space-Invader-App-Demo-JS/",
+        imageUrl: "assets/images/projects/space-invader.png"
+    }
+];
+
 // Wait for the DOM to load before accessing elements
 window.addEventListener('DOMContentLoaded', () => {
     // Dark/Light Mode Toggle
@@ -412,66 +479,12 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Manually defined project data with image URLs and categories array
-    const projects = [
-        {
-            name: "Game Boy Pokédex",
-            description: "A retro-inspired Pokédex web app styled like a classic Game Boy, built with HTML, CSS, and JavaScript.",
-            date: "Apr 2025",
-            categories: ["JavaScript", "HTML/CSS", "API"], // Multiple categories
-            stars: 0,
-            githubUrl: "https://github.com/DibyaProkash/pokedex",
-            liveDemoUrl: "https://dibyaprokash.github.io/pokedex/",
-            imageUrl: "assets/images/projects/pokedex1.png"
-        },
-        {
-            name: "Real-time Weather Mobile App",
-            description: "A real-time weather mobile app using Kotlin and OpenWeatherMap API.",
-            date: "Mar 2025",
-            categories: ["Kotlin", "API"],
-            stars: 0,
-            githubUrl: "https://github.com/DibyaProkash/weather-mobile-app",
-            liveDemoUrl: "",
-            imageUrl: "assets/images/projects/weather-app.png"
-        },
-        {
-            name: "2D Chess Game",
-            description: "A single-player 2D chess game with AI opponent, built with JavaScript and HTML5 Canvas.",
-            date: "Mar 2025",
-            categories: ["JavaScript", "HTML/CSS"],
-            stars: 0,
-            githubUrl: "https://github.com/DibyaProkash/2D-Chess-Game-JS",
-            liveDemoUrl: "https://dibyaprokash.github.io/2D-Chess-Game-JS/", 
-            imageUrl: "assets/images/projects/2d-chess.png"
-        },
-        {
-            name: "Real-time News App",
-            description: "A real-time mobile news application using Kotlin and NewsAPI, with a focus on responsive design.",
-            date: "Mar 2025",
-            categories: ["Kotlin", "API"],
-            stars: 0,
-            githubUrl: "https://github.com/DibyaProkash/TheNewsApp",
-            liveDemoUrl: "", // No live demo available
-            imageUrl: "assets/images/projects/project1.png"
-        },
-        {
-            name: "Space Invader App",
-            description: "A retro-style Space Invader game built with JavaScript and HTML5 Canvas.",
-            date: "Mar 2025",
-            categories: ["JavaScript", "HTML/CSS"],
-            stars: 0,
-            githubUrl: "https://github.com/DibyaProkash/Space-Invader-App-Demo-JS",
-            liveDemoUrl: "https://dibyaprokash.github.io/Space-Invader-App-Demo-JS/",
-            imageUrl: "assets/images/projects/space-invader.png"
-        }
-    ];
-
     // Populate the portfolio section with the manual data
     const projectSlider = document.getElementById('project-grid');
     projectSlider.classList.add('project-slider'); // Add slider class
 
     // Create slider container
-    const sliderContainer = document.createElement('div');
+    sliderContainer = document.createElement('div');
     sliderContainer.className = 'slider-container';
     projectSlider.appendChild(sliderContainer);
 
@@ -479,10 +492,6 @@ window.addEventListener('DOMContentLoaded', () => {
     const popupOverlay = document.createElement('div');
     popupOverlay.className = 'popup-overlay';
     document.body.appendChild(popupOverlay);
-
-    // Create popup container
-    let popup = null;
-    let activeExpandedCard = null; // Track the card associated with the popup
 
     // Create slider controls
     const sliderControls = document.createElement('div');
@@ -499,11 +508,7 @@ window.addEventListener('DOMContentLoaded', () => {
     sliderDots.className = 'slider-dots';
     projectSlider.appendChild(sliderDots);
 
-    let currentSlide = 0;
-    let isPlaying = true;
-    let slideInterval;
-    let previousSlide = 0; // Track the previous slide to determine sliding direction
-    let visibleProjects = [...projects]; // Track currently visible projects after filtering
+    visibleProjects = [...projects]; // Initialize visible projects
 
     // Dynamically generate dropdown options based on unique categories
     const categoryFilter = document.getElementById('category-filter');
@@ -764,136 +769,121 @@ window.addEventListener('DOMContentLoaded', () => {
         if (isPlaying) startAutoplay();
     });
 
-    // Slider functionality
-    const prevButton = document.querySelector('.prev');
-    const nextButton = document.querySelector('.next');
-    const playPauseButton = document.querySelector('.play-pause-button');
+    // Add form submission feedback
+    const contactForm = document.getElementById('contact-form');
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault(); // Prevent default form submission for testing
+        const submitButton = contactForm.querySelector('.submit-button');
+        submitButton.disabled = true;
+        submitButton.textContent = 'Sending...';
+        
+        fetch(contactForm.action, {
+            method: 'POST',
+            body: new FormData(contactForm),
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            submitButton.disabled = false;
+            submitButton.textContent = 'Send Message';
+            if (response.ok) {
+                // Create a success message
+                const successMessage = document.createElement('div');
+                successMessage.className = 'form-message success';
+                successMessage.textContent = 'Message sent successfully!';
+                contactForm.appendChild(successMessage);
+                contactForm.reset(); // Clear the form
 
-    function updateSlider() {
-        const visibleCards = Array.from(sliderContainer.children).filter(card => card.style.display !== 'none');
-        if (visibleCards.length === 0) return;
+                // Animate the success message
+                anime({
+                    targets: successMessage,
+                    opacity: [0, 1],
+                    translateY: [20, 0],
+                    duration: 500,
+                    easing: 'easeOutQuad',
+                    complete: () => {
+                        // Remove the message after 3 seconds
+                        setTimeout(() => {
+                            anime({
+                                targets: successMessage,
+                                opacity: 0,
+                                translateY: -20,
+                                duration: 500,
+                                easing: 'easeInQuad',
+                                complete: () => {
+                                    successMessage.remove();
+                                }
+                            });
+                        }, 3000);
+                    }
+                });
+            } else {
+                // Create an error message
+                const errorMessage = document.createElement('div');
+                errorMessage.className = 'form-message error';
+                errorMessage.textContent = 'There was an error sending your message. Please try again.';
+                contactForm.appendChild(errorMessage);
 
-        // Adjust currentSlide if it exceeds the number of visible cards
-        if (currentSlide >= visibleCards.length) {
-            currentSlide = 0;
-        } else if (currentSlide < 0) {
-            currentSlide = visibleCards.length - 1;
-        }
-
-        // Calculate the target offset for the slider (card width + margin)
-        const cardWidth = window.innerWidth <= 768 ? window.innerWidth * 0.95 + 20 : 800; // Card width (700px) + margin (50px on each side), adjusted for mobile
-        const targetOffset = -currentSlide * cardWidth;
-
-        // Determine sliding direction
-        const direction = currentSlide > previousSlide ? 'next' : 'prev';
-
-        // Use Anime.js to animate the sliding with direction-aware effects
-        anime({
-            targets: sliderContainer,
-            translateX: targetOffset,
-            duration: 1000, // 1 second for a smooth slide
-            easing: direction === 'next' ? 'spring(1, 80, 10, 0)' : 'easeInOutSine', // Bouncy for "next", smooth for "prev"
-            opacity: direction === 'prev' ? [0.7, 1] : 1, // Slight fade for "prev"
-            update: () => {
-                // Animate the active card's opacity and scale
-                visibleCards.forEach((card, index) => {
-                    if (index === currentSlide) {
-                        card.classList.add('active');
-                        anime({
-                            targets: card,
-                            opacity: [0, 1],
-                            scale: [0.8, 1],
-                            duration: 1000,
-                            easing: 'easeInOutQuad'
-                        });
-                    } else {
-                        card.classList.remove('active');
+                // Animate the error message
+                anime({
+                    targets: errorMessage,
+                    opacity: [0, 1],
+                    translateY: [20, 0],
+                    duration: 500,
+                    easing: 'easeOutQuad',
+                    complete: () => {
+                        // Remove the message after 3 seconds
+                        setTimeout(() => {
+                            anime({
+                                targets: errorMessage,
+                                opacity: 0,
+                                translateY: -20,
+                                duration: 500,
+                                easing: 'easeInQuad',
+                                complete: () => {
+                                    errorMessage.remove();
+                                }
+                            });
+                        }, 3000);
                     }
                 });
             }
+        })
+        .catch(error => {
+            submitButton.disabled = false;
+            submitButton.textContent = 'Send Message';
+            console.error('Form submission error:', error);
+            // Create an error message
+            const errorMessage = document.createElement('div');
+            errorMessage.className = 'form-message error';
+            errorMessage.textContent = 'There was an error sending your message. Please try again.';
+            contactForm.appendChild(errorMessage);
+
+            // Animate the error message
+            anime({
+                targets: errorMessage,
+                opacity: [0, 1],
+                translateY: [20, 0],
+                duration: 500,
+                easing: 'easeOutQuad',
+                complete: () => {
+                    // Remove the message after 3 seconds
+                    setTimeout(() => {
+                        anime({
+                            targets: errorMessage,
+                            opacity: 0,
+                            translateY: -20,
+                            duration: 500,
+                            easing: 'easeInQuad',
+                            complete: () => {
+                                errorMessage.remove();
+                            }
+                        });
+                    }, 3000);
+                }
+            });
         });
-
-        // Update pagination dots
-        const dots = document.querySelectorAll('.dot');
-        dots.forEach((dot, index) => {
-            if (index === currentSlide) {
-                dot.classList.add('active');
-            } else {
-                dot.classList.remove('active');
-            }
-        });
-
-        // Update previousSlide for the next transition
-        previousSlide = currentSlide;
-    }
-
-    function startAutoplay() {
-        if (isPlaying && !activeExpandedCard) { // Only start if no popup is open
-            console.log('Starting autoplay');
-            slideInterval = setInterval(() => {
-                previousSlide = currentSlide;
-                currentSlide++;
-                updateSlider();
-            }, 5000); // Change slide every 5 seconds
-        }
-    }
-
-    function stopAutoplay() {
-        console.log('Stopping autoplay');
-        clearInterval(slideInterval);
-    }
-
-    prevButton.addEventListener('click', () => {
-        if (activeExpandedCard) return; // Prevent interaction if a popup is open
-        stopAutoplay();
-        previousSlide = currentSlide;
-        currentSlide--;
-        updateSlider();
-        if (isPlaying) startAutoplay();
-    });
-
-    nextButton.addEventListener('click', () => {
-        if (activeExpandedCard) return; // Prevent interaction if a popup is open
-        stopAutoplay();
-        previousSlide = currentSlide;
-        currentSlide++;
-        updateSlider();
-        if (isPlaying) startAutoplay();
-    });
-
-    playPauseButton.addEventListener('click', () => {
-        if (activeExpandedCard) return; // Prevent interaction if a popup is open
-        if (isPlaying) {
-            stopAutoplay();
-            playPauseButton.textContent = 'Play';
-            playPauseButton.setAttribute('aria-label', 'Play slideshow');
-        } else {
-            startAutoplay();
-            playPauseButton.textContent = 'Pause';
-            playPauseButton.setAttribute('aria-label', 'Pause slideshow');
-        }
-        isPlaying = !isPlaying;
-        console.log('Play/Pause clicked, isPlaying:', isPlaying);
-    });
-
-    // Keyboard navigation for slider
-    document.addEventListener('keydown', (e) => {
-        if (activeExpandedCard) return; // Prevent interaction if a popup is open
-        if (e.key === 'ArrowLeft') {
-            stopAutoplay();
-            previousSlide = currentSlide;
-            currentSlide--;
-            updateSlider();
-            if (isPlaying) startAutoplay();
-        } else if (e.key === 'ArrowRight') {
-            stopAutoplay();
-            previousSlide = currentSlide;
-            currentSlide++;
-            updateSlider();
-            if (isPlaying) startAutoplay();
-        } else if (e.key === 'Escape' && activeExpandedCard) {
-            closePopup();
-        }
     });
 
     // Back to Top button visibility
@@ -1030,10 +1020,142 @@ window.addEventListener('DOMContentLoaded', () => {
     updateSectionVisibility();
 
     window.addEventListener('scroll', updateSectionVisibility);
+
+    // Slider functionality (moved inside DOMContentLoaded)
+    const prevButton = document.querySelector('.prev');
+    const nextButton = document.querySelector('.next');
+    const playPauseButton = document.querySelector('.play-pause-button');
+
+    prevButton.addEventListener('click', () => {
+        if (activeExpandedCard) return; // Prevent interaction if a popup is open
+        stopAutoplay();
+        previousSlide = currentSlide;
+        currentSlide--;
+        updateSlider();
+        if (isPlaying) startAutoplay();
+    });
+
+    nextButton.addEventListener('click', () => {
+        if (activeExpandedCard) return; // Prevent interaction if a popup is open
+        stopAutoplay();
+        previousSlide = currentSlide;
+        currentSlide++;
+        updateSlider();
+        if (isPlaying) startAutoplay();
+    });
+
+    playPauseButton.addEventListener('click', () => {
+        if (activeExpandedCard) return; // Prevent interaction if a popup is open
+        if (isPlaying) {
+            stopAutoplay();
+            playPauseButton.textContent = 'Play';
+            playPauseButton.setAttribute('aria-label', 'Play slideshow');
+        } else {
+            startAutoplay();
+            playPauseButton.textContent = 'Pause';
+            playPauseButton.setAttribute('aria-label', 'Pause slideshow');
+        }
+        isPlaying = !isPlaying;
+        console.log('Play/Pause clicked, isPlaying:', isPlaying);
+    });
+
+    // Keyboard navigation for slider
+    document.addEventListener('keydown', (e) => {
+        if (activeExpandedCard) return; // Prevent interaction if a popup is open
+        if (e.key === 'ArrowLeft') {
+            stopAutoplay();
+            previousSlide = currentSlide;
+            currentSlide--;
+            updateSlider();
+            if (isPlaying) startAutoplay();
+        } else if (e.key === 'ArrowRight') {
+            stopAutoplay();
+            previousSlide = currentSlide;
+            currentSlide++;
+            updateSlider();
+            if (isPlaying) startAutoplay();
+        } else if (e.key === 'Escape' && activeExpandedCard) {
+            closePopup();
+        }
+    });
 });
 
+// Function to update slider (already in global scope)
+function updateSlider() {
+    const visibleCards = Array.from(sliderContainer.children).filter(card => card.style.display !== 'none');
+    if (visibleCards.length === 0) return;
+
+    // Adjust currentSlide if it exceeds the number of visible cards
+    if (currentSlide >= visibleCards.length) {
+        currentSlide = 0;
+    } else if (currentSlide < 0) {
+        currentSlide = visibleCards.length - 1;
+    }
+
+    // Calculate the target offset for the slider (card width + margin)
+    const cardWidth = window.innerWidth <= 768 ? window.innerWidth * 0.95 + 20 : 800; // Card width (700px) + margin (50px on each side), adjusted for mobile
+    const targetOffset = -currentSlide * cardWidth;
+
+    // Determine sliding direction
+    const direction = currentSlide > previousSlide ? 'next' : 'prev';
+
+    // Use Anime.js to animate the sliding with direction-aware effects
+    anime({
+        targets: sliderContainer,
+        translateX: targetOffset,
+        duration: 1000, // 1 second for a smooth slide
+        easing: direction === 'next' ? 'spring(1, 80, 10, 0)' : 'easeInOutSine', // Bouncy for "next", smooth for "prev"
+        opacity: direction === 'prev' ? [0.7, 1] : 1, // Slight fade for "prev"
+        update: () => {
+            // Animate the active card's opacity and scale
+            visibleCards.forEach((card, index) => {
+                if (index === currentSlide) {
+                    card.classList.add('active');
+                    anime({
+                        targets: card,
+                        opacity: [0, 1],
+                        scale: [0.8, 1],
+                        duration: 1000,
+                        easing: 'easeInOutQuad'
+                    });
+                } else {
+                    card.classList.remove('active');
+                }
+            });
+        }
+    });
+
+    // Update pagination dots
+    const dots = document.querySelectorAll('.dot');
+    dots.forEach((dot, index) => {
+        if (index === currentSlide) {
+            dot.classList.add('active');
+        } else {
+            dot.classList.remove('active');
+        }
+    });
+
+    // Update previousSlide for the next transition
+    previousSlide = currentSlide;
+}
+
+function startAutoplay() {
+    if (isPlaying && !activeExpandedCard) { // Only start if no popup is open
+        console.log('Starting autoplay');
+        slideInterval = setInterval(() => {
+            previousSlide = currentSlide;
+            currentSlide++;
+            updateSlider();
+        }, 5000); // Change slide every 5 seconds
+    }
+}
+
+function stopAutoplay() {
+    console.log('Stopping autoplay');
+    clearInterval(slideInterval);
+}
+
 // Animation loop
-let time = 0;
 const clock = new THREE.Clock(); // For animation mixer
 function animate() {
     requestAnimationFrame(animate);
@@ -1097,5 +1219,5 @@ window.addEventListener('resize', () => {
     testimonialsCamera.aspect = window.innerWidth / window.innerHeight;
     testimonialsCamera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
-    updateSlider(); // Update slider on resize to adjust for new card width
+    updateSlider(); // Now accessible in the global scope
 });
