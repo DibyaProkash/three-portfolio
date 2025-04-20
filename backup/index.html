@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Portfolio of Dibya Prokash Sarkar, a full-stack developer">
-    <meta http-equiv="X-Frame-Options" content="DENY">
     <meta property="og:title" content="Dibya's Portfolio">
     <meta property="og:description" content="Portfolio of Dibya Prokash Sarkar, a full-stack developer">
     <meta property="og:image" content="assets/images/preview-image.png">
@@ -13,16 +12,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=VT323&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="icon" type="image/png" href="assets/images/favicon.ico">
-    <!-- Load CSS files -->
-    <link rel="stylesheet" href="css/theme.css">
-    <link rel="stylesheet" href="css/home.css">
-    <link rel="stylesheet" href="css/about.css">
-    <link rel="stylesheet" href="css/portfolio.css">
-    <link rel="stylesheet" href="css/skills.css">
-    <link rel="stylesheet" href="css/experience.css">
-    <link rel="stylesheet" href="css/education.css">
-    <link rel="stylesheet" href="css/publications.css">
-    <link rel="stylesheet" href="css/contact.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/framer-motion/4.1.17/framer-motion.min.js"></script> <!-- Framer Motion CDN -->
 </head>
 
 <body class="dark-mode">
@@ -30,11 +22,11 @@
     <div id="side-nav" role="navigation" aria-label="Section navigation">
         <div class="nav-bullet active" data-section="#home" role="button" aria-label="Go to Home section" aria-current="page"></div>
         <div class="nav-bullet" data-section="#about" role="button" aria-label="Go to About section"></div>
+        <div class="nav-bullet" data-section="#testimonials" role="button" aria-label="Go to Testimonials section"></div>
         <div class="nav-bullet" data-section="#portfolio" role="button" aria-label="Go to Portfolio section"></div>
         <div class="nav-bullet" data-section="#skills" role="button" aria-label="Go to Skills section"></div>
         <div class="nav-bullet" data-section="#experience" role="button" aria-label="Go to Experience section"></div>
         <div class="nav-bullet" data-section="#education" role="button" aria-label="Go to Education section"></div>
-        <div class="nav-bullet" data-section="#publications" role="button" aria-label="Go to Publications section"></div>
         <div class="nav-bullet" data-section="#contact" role="button" aria-label="Go to Contact section"></div>
     </div>
     <button id="theme-toggle" title="Toggle Dark/Light Mode" aria-label="Toggle between dark and light mode" aria-pressed="false">
@@ -56,16 +48,32 @@
             <h2>About Me</h2>
             <div class="about-container">
                 <div class="about-image tiltable">
-                    <img src="assets/images/my-photo.jpg" alt="Dibya Prokash Sarkar" loading="lazy">
+                    <div class="image-placeholder">Image Placeholder</div>
                 </div>
                 <div class="about-content">
                     <h3>Who I Am</h3>
                     <p>I'm Dibya Prokash Sarkar, a passionate full-stack developer with a love for creating innovative solutions. With expertise in both front-end and back-end technologies, I enjoy building projects that are both functional and visually appealing.</p>
-                    <a href="assets/Dibya_Prokash_Sarkar_Resume.pdf" download class="resume-link" aria-label="Download Dibya Prokash Sarkar's resume">Download Resume</a>
+                    <button id="generate-resume" class="resume-button" aria-label="Generate and download resume">Generate Resume</button>
                 </div>
             </div>
         </section>
-        <!-- Removed Testimonials section -->
+        <section id="testimonials">
+            <h2>Testimonials</h2>
+            <div class="testimonials-container">
+                <div class="testimonial-card">
+                    <p>"Dibya Prokash is an exceptional developer with a keen eye for detail. His work on our project was outstanding!"</p>
+                    <h4>- John Doe, CEO of TechCorp</h4>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Working with Dibya Prokash was a pleasure. He delivered a high-quality solution on time and exceeded our expectations."</p>
+                    <h4>- Jane Smith, Product Manager</h4>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Dibya Prokash's creativity and technical skills are top-notch. He brought our vision to life with his expertise."</p>
+                    <h4>- Alex Brown, Designer</h4>
+                </div>
+            </div>
+        </section>
         <section id="portfolio">
             <h2>Portfolio</h2>
             <div class="portfolio-search">
@@ -75,7 +83,7 @@
                 <div class="portfolio-filter">
                     <label for="category-filter">Filter by Category: </label>
                     <select id="category-filter" aria-label="Filter projects by category">
-                        <!-- Options will be dynamically generated by slider.js -->
+                        <!-- Options will be dynamically generated by app.js -->
                     </select>
                 </div>
                 <div class="portfolio-links">
@@ -123,118 +131,26 @@
                 </div>
             </div>
         </section>
-        <section id="education" class="section">
-            <div class="container">
-                <h2 class="section-title">Education</h2>
+        <section id="education">
+            <h2>Education</h2>
+            <div class="education-container">
                 <div class="timeline">
-                    <div class="timeline-item left" data-date="2021.01 - 2024.08">
-                        <div class="timeline-date">2021.01 - 2024.08</div>
+                    <div class="timeline-item" data-location="bd">
                         <div class="timeline-content">
-                            <h3>MSc in Computer Science</h3>
-                            <div class="detail">
-                                <span class="detail-label">Institution:</span>
-                                <span class="detail-text">University of Victoria, BC, Canada</span>
-                            </div>
-                            <div class="detail">
-                                <span class="detail-label">Major:</span>
-                                <span class="detail-text">Computer Science & Human-Computer Interaction (HCI)</span>
-                            </div>
-                            <div class="detail">
-                                <span class="detail-label">Supervisors:</span>
-                                <span class="detail-text">Drs. Sowmya Somanath and Charles Perin</span>
-                            </div>
+                            <h3>BSc in Computer Science</h3>
+                            <p>University of Dhaka, Bangladesh</p>
+                            <p>2016 - 2020</p>
                         </div>
                     </div>
-                    <div class="timeline-item right" data-date="2014.09 - 2018.12">
-                        <div class="timeline-date">2014.09 - 2018.12</div>
+                    <div class="timeline-item" data-location="ca">
                         <div class="timeline-content">
-                            <h3>BSc in Computer Science & Engineering</h3>
-                            <div class="detail">
-                                <span class="detail-label">Institution:</span>
-                                <span class="detail-text">North South University, Dhaka, Bangladesh</span>
-                            </div>
-                            <div class="detail">
-                                <span class="detail-label">Major:</span>
-                                <span class="detail-text">Computer Engineering</span>
-                            </div>
-                            <div class="detail">
-                                <span class="detail-label">Supervisors:</span>
-                                <span class="detail-text">Drs. Nova Ahmed and Tamanna Motahar</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="timeline-item left" data-date="2012.07 - 2014.07">
-                        <div class="timeline-date">2012.07 - 2014.07</div>
-                        <div class="timeline-content">
-                            <h3>Higher Secondary Certificate (HSC)</h3>
-                            <div class="detail">
-                                <span class="detail-label">Institution:</span>
-                                <span class="detail-text">Notre Dame College, Dhaka, Bangladesh</span>
-                            </div>
-                            <div class="detail">
-                                <span class="detail-label">Concentration:</span>
-                                <span class="detail-text">Science</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="timeline-item right" data-date="2004.01 - 2012.04">
-                        <div class="timeline-date">2004.01 - 2012.04</div>
-                        <div class="timeline-content">
-                            <h3>Secondary School Certificate (SSC)</h3>
-                            <div class="detail">
-                                <span class="detail-label">Institution:</span>
-                                <span class="detail-text">St. Joseph Higher Secondary School, Dhaka, Bangladesh</span>
-                            </div>
-                            <div class="detail">
-                                <span class="detail-label">Concentration:</span>
-                                <span class="detail-text">Science</span>
-                            </div>
-                            <div class="detail">
-                                <span class="detail-label">Activities:</span>
-                                <span class="detail-text">Josephite Chess Club Executive Committee (General Secretary); Josephite Scintilla Science Club Executive Committee - 2011 (Joint Secretary); Josephite Scintilla Science Club Executive Committee - 2010 (Correspondent)</span>
-                            </div>
+                            <h3>Master's in Software Engineering</h3>
+                            <p>University of Toronto, Canada</p>
+                            <p>2021 - 2023</p>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-        <section id="publications">
-            <h2>Publications</h2>
-            <div class="publications-links">
-                <p>Find my publications in</p>
-                <div class="links">
-                    <a href="https://scholar.google.com/citations?user=YOUR_GOOGLE_SCHOLAR_ID" target="_blank" class="publication-link" aria-label="View Dibya Prokash Sarkar's Google Scholar profile">Google Scholar</a>
-                    <a href="https://dblp.org/pid/229/2189.html" target="_blank" class="publication-link" aria-label="View Dibya Prokash Sarkar's DBLP profile">DBLP</a>
-                </div>
-            </div>
-            <div class="publications-container">
-                <h3>Conference Proceedings:</h3>
-                <div class="publication-year">
-                    <h4>2019</h4>
-                    <ul>
-                        <li>
-                            <span class="publication-title">SHEBA: A Low-Cost Assistive Robot For Older Adults In The Developing World</span><br>
-                            Motahar, T., Farden, M. F., Sarkar, D. P., Islam, M. A., Cabrera, M. E., & Cakmak, M. (2019, October). 2019 28th IEEE International Conference On Robot And Human Interactive Communication (RO-MAN), India.
-                        </li>
-                        <li>
-                            <span class="publication-title">A Low-Cost Healthcare Bot For Elderly People</span><br>
-                            Sarkar, D. P., Farden, M. F., Islam, M. A., Rony, R. J., & Motahar, T. (2019, May). Joint 2019 8th International Conference On Informatics, Electronics & Vision (ICIEV) & 3rd International Conference On Imaging, Vision & Pattern Recognition (IVPR), USA.
-                        </li>
-                    </ul>
-                </div>
-                <div class="publication-year">
-                    <h4>2018</h4>
-                    <ul>
-                        <li>
-                            <span class="publication-title">A Nurse Bot For Elderly People</span><br>
-                            Sarkar, D. P. (2018, October). A Nurse Bot For Elderly People. In Proceedings Of The 2018 ACM International Joint Conference And 2018 International Symposium On Pervasive And Ubiquitous Computing And Wearable Computers (Pp. 1798-1799). ACM. ISBN: 978-1-4503-5966-5. DOI: <a href="https://doi.org/10.1145/3267305.3277821" target="_blank" aria-label="DOI link for A Nurse Bot For Elderly People">https://doi.org/10.1145/3267305.3277821</a>
-                        </li>
-                        <li>
-                            <span class="publication-title">Mini Nurse-Bot: A Healthcare Assistance For Elderly People</span><br>
-                            Motahar, T., Farden, M. F., Islam, M. A., Rony, R. J., & Sarkar, D. P. (2018, October). Mini Nurse-Bot: A Healthcare Assistance For Elderly People. In Proceedings Of The 2018 ACM International Conference On Pervasive And Ubiquitous Computing And Wearable Computers (Pp. 170-173). ACM. ISBN: 978-1-4503-5966-5. DOI: <a href="https://doi.org/10.1145/3267305.3277662" target="_blank" aria-label="DOI link for Mini Nurse-Bot">https://doi.org/10.1145/3267305.3277662</a>
-                        </li>
-                    </ul>
-                </div>
+                <div id="globe-container"></div>
             </div>
         </section>
         <section id="contact">
@@ -245,12 +161,12 @@
                     <div class="contact-info">
                         <div class="contact-detail">
                             <i class="fas fa-envelope"></i>
-                            <span>Email:</span>
-                            <p id="email-address"></p>
+                            <span>Email</span>
+                            <p>dibyaprokash@gmail.com</p>
                         </div>
                         <div class="contact-detail">
                             <i class="fas fa-map-marker-alt"></i>
-                            <span>Location:</span>
+                            <span>Location</span>
                             <p>Dhaka, Bangladesh</p>
                         </div>
                     </div>
@@ -285,12 +201,8 @@
     </div>
     <button id="back-to-top" aria-label="Scroll back to top">↑</button>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/WebGL.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/loaders/GLTFLoader.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-    <script src="three.js"></script>
-    <script src="slider.js"></script>
-    <script src="form.js"></script>
-    <script src="main.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>

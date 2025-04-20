@@ -1,0 +1,68 @@
+[
+    {
+        "name": "Game Boy Pokédex",
+        "description": "A classic retro Pac-Man game built with p5.js, featuring modern accessibility and responsive design.",
+        "date": "Apr 2025",
+        "categories": ["JavaScript", "HTML/CSS"],
+        "stars": 0,
+        "githubUrl": "https://github.com/DibyaProkash/pokedex",
+        "liveDemoUrl": "https://dibyaprokash.github.io/pokedex/",
+        "imageUrl": "assets/images/projects/pokedex.png",
+        "imageUrlWebP": "assets/images/projects/pokedex.webp"
+    },
+    {
+        "name": "Pac-Man Game",
+        "description": "A real-time weather mobile app using Kotlin and OpenWeatherMap API.",
+        "date": "Mar 2025",
+        "categories": ["JavaScript", "HTML/CSS"],
+        "stars": 0,
+        "githubUrl": "https://github.com/DibyaProkash/pacman",
+        "liveDemoUrl": "https://dibyaprokash.github.io/pacman/",
+        "imageUrl": "assets/images/projects/pacman-game.png",
+        "imageUrlWebP": "assets/images/projects/pacman-game.webp"
+    },
+    {
+        "name": "Real-time Weather Mobile App",
+        "description": "A real-time weather mobile app using Kotlin and OpenWeatherMap API.",
+        "date": "Mar 2025",
+        "categories": ["Kotlin", "API"],
+        "stars": 0,
+        "githubUrl": "https://github.com/DibyaProkash/weather-mobile-app",
+        "liveDemoUrl": "",
+        "imageUrl": "assets/images/projects/weather-app.png",
+        "imageUrlWebP": "assets/images/projects/weather-app.webp"
+    },
+    {
+        "name": "2D Chess Game",
+        "description": "A single-player 2D chess game with AI opponent, built with JavaScript and HTML5 Canvas.",
+        "date": "Mar 2025",
+        "categories": ["JavaScript", "HTML/CSS"],
+        "stars": 0,
+        "githubUrl": "https://github.com/DibyaProkash/2D-Chess-Game-JS",
+        "liveDemoUrl": "https://dibyaprokash.github.io/2D-Chess-Game-JS/",
+        "imageUrl": "assets/images/projects/2d-chess.png",
+        "imageUrlWebP": "assets/images/projects/2d-chess.webp"
+    },
+    {
+        "name": "Real-time News App",
+        "description": "A real-time mobile news application using Kotlin and NewsAPI, with a focus on responsive design.",
+        "date": "Mar 2025",
+        "categories": ["Kotlin", "API"],
+        "stars": 0,
+        "githubUrl": "https://github.com/DibyaProkash/TheNewsApp",
+        "liveDemoUrl": "",
+        "imageUrl": "assets/images/projects/news-app.png",
+        "imageUrlWebP": "assets/images/projects/news-app.webp"
+    },
+    {
+        "name": "Space Invader App",
+        "description": "A retro-style Space Invader game built with JavaScript and HTML5 Canvas.",
+        "date": "Mar 2025",
+        "categories": ["JavaScript", "HTML/CSS"],
+        "stars": 0,
+        "githubUrl": "https://github.com/DibyaProkash/Space-Invader-App-Demo-JS",
+        "liveDemoUrl": "https://dibyaprokash.github.io/Space-Invader-App-Demo-JS/",
+        "imageUrl": "assets/images/projects/space-invader.png",
+        "imageUrlWebP": "assets/images/projects/space-invader.webp"
+    }
+]

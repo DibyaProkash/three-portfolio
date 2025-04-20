@@ -1,0 +1,143 @@
+/* Ensure #home is visible on load */
+#home {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Hero Section */
+#home {
+    position: relative;
+}
+
+.fk-logo {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 1.5em;
+    font-weight: 700;
+    color: #e0e6ed; /* Fallback */
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+.hero-content h1 {
+    font-size: 6em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin: 0;
+    color: #e0e6ed; /* Fallback */
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+.hero-content .role {
+    font-size: 2em;
+    color: #00ccff; /* Fallback */
+    color: var(--link-color);
+    margin: 0.5em 0;
+    transition: color 0.3s ease;
+}
+
+.hero-content .tagline {
+    font-size: 1.5em;
+    color: #b0bec5; /* Softer gray for tagline in dark mode */
+    max-width: 600px;
+    margin: 1em auto;
+    transition: color 0.3s ease;
+}
+
+body.light-mode .hero-content .tagline {
+    color: #6b7280; /* Darker gray for tagline in light mode */
+}
+
+/* Animated Role Text */
+#animated-role {
+    color: #00ccff; /* Fallback */
+    color: var(--link-color);
+    text-shadow: 0 0 10px rgba(0, 204, 255, 0.5); /* Fallback */
+    text-shadow: 0 0 10px var(--shadow-color), 0 0 20px var(--shadow-color);
+    position: relative;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+#animated-role::after {
+    content: '|';
+    animation: blink 0.7s infinite;
+    margin-left: 2px;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2em;
+    color: #00ccff; /* Fallback */
+    color: var(--link-color);
+    animation: bounce 2s infinite;
+    z-index: 10;
+    transition: color 0.3s ease;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    40% {
+        transform: translateX(-50%) translateY(-20px);
+    }
+    60% {
+        transform: translateX(-50%) translateY(-10px);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .hero-content h1 {
+        font-size: 4em;
+    }
+
+    .hero-content .role {
+        font-size: 1.5em;
+    }
+
+    .hero-content .tagline {
+        font-size: 1.2em;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 3em;
+    }
+
+    .hero-content .role {
+        font-size: 1.2em;
+    }
+
+    .hero-content .tagline {
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 2em;
+    }
+
+    .hero-content .role {
+        font-size: 1em;
+    }
+
+    .hero-content .tagline {
+        font-size: 0.9em;
+    }
+}

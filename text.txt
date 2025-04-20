@@ -59,3 +59,16 @@ const projects = [
 
 
 <form id="contact-form" action="https://formspree.io/f/mldjoqrw" method="POST" class="contact-form">
+
+<meta http-equiv="X-Frame-Options" content="DENY">
+
+<div class="contact-detail">
+    <i class="fas fa-envelope"></i>
+    <span>Email:</span>
+    <p id="email-address"></p>
+</div>
+<div class="contact-detail">
+    <i class="fas fa-map-marker-alt"></i>
+    <span>Location:</span>
+    <p>Dhaka, Bangladesh</p>
+</div>
