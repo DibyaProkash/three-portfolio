@@ -25,6 +25,12 @@ function renderProjects(projectsToRender) {
     const sliderDots = document.querySelector('.slider-dots');
     sliderDots.innerHTML = '';
 
+    // Clear existing thumbnails before rendering new ones
+    const existingThumbnails = projectSlider.querySelector('.slider-thumbnails');
+    if (existingThumbnails) {
+        existingThumbnails.remove();
+    }
+
     if (projectsToRender.length === 0) {
         const noProjectsMessage = document.createElement('div');
         noProjectsMessage.className = 'no-projects-message';
