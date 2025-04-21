@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="icon" type="image/png" href="assets/images/favicon.ico">
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/devicon@2.15.1/devicon.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <!-- Load CSS files -->
     <link rel="stylesheet" href="css/theme.css">
     <link rel="stylesheet" href="css/home.css">
@@ -49,7 +50,7 @@
                     <img src="assets/images/my-photo.jpg" alt="Dibya Prokash Sarkar" loading="lazy">
                 </div>
                 <h1>DIBYA PROKASH SARKAR</h1>
-                <p class="role">I am <span id="animated-role" aria-live="polite">[full stack]</span></p>
+                <p class="role">I am a <span id="animated-role" aria-live="polite">[full stack]</span></p>
                 <p class="tagline">Crafting digital experiences with code and creativity.</p>
                 <div class="social-links">
                     <a href="https://www.linkedin.com/in/dibyaprokash/" target="_blank" rel="noopener noreferrer" class="social-icon linkedin" aria-label="Visit Dibya Prokash Sarkar's LinkedIn profile">
@@ -332,8 +333,8 @@
             <div class="publications-links">
                 <p>Find my publications in</p>
                 <div class="links">
-                    <a href="https://scholar.google.com/citations?user=YOUR_GOOGLE_SCHOLAR_ID" target="_blank" class="publication-link" aria-label="View Dibya Prokash Sarkar's Google Scholar profile">Google Scholar</a>
-                    <a href="https://dblp.org/pid/229/2189.html" target="_blank" class="publication-link" aria-label="View Dibya Prokash Sarkar's DBLP profile">DBLP</a>
+                    <a href="https://scholar.google.com/citations?user=YOUR_GOOGLE_SCHOLAR_ID" target="_blank" rel="noopener noreferrer" class="publication-link" aria-label="View Dibya Prokash Sarkar's Google Scholar profile">Google Scholar</a>
+                    <a href="https://dblp.org/pid/229/2189.html" target="_blank" rel="noopener noreferrer" class="publication-link" aria-label="View Dibya Prokash Sarkar's DBLP profile">DBLP</a>
                 </div>
             </div>
             <div class="publications-container">
@@ -423,8 +424,8 @@
                     </select>
                 </div>
                 <div class="portfolio-links">
-                    <a href="https://dibyaprokash.github.io" class="portfolio-link live-demo" target="_blank" aria-label="View portfolio live demo">Portfolio Live Demo</a>
-                    <a href="https://github.com/DibyaProkash" class="portfolio-link github-repo" target="_blank" aria-label="View portfolio GitHub repository">Portfolio GitHub Repo</a>
+                    <a href="https://dibyaprokash.github.io" class="portfolio-link live-demo" target="_blank" rel="noopener noreferrer" aria-label="View portfolio live demo">Portfolio Live Demo</a>
+                    <a href="https://github.com/DibyaProkash" class="portfolio-link github-repo" target="_blank" rel="noopener noreferrer" aria-label="View portfolio GitHub repository">Portfolio GitHub Repo</a>
                 </div>
             </div>
             <div id="project-grid">
@@ -449,7 +450,7 @@
                         <div class="contact-detail">
                             <i class="fas fa-map-marker-alt"></i>
                             <span>Location:</span>
-                            <p>Courtenay, BC, Canada</p>
+                            <p>Dhaka, Bangladesh</p>
                         </div>
                     </div>
                     <div class="social-links">
@@ -476,19 +477,18 @@
                     <div class="form-group">
                         <textarea id="message" name="message" placeholder="Your message" rows="5" required aria-label="Your message"></textarea>
                     </div>
+                    <div class="g-recaptcha" data-sitekey="6LfRMx8rAAAAAJVGYUB_ZAGlNDUMbiqHRy-fSw4x"></div>
                     <button type="submit" class="submit-button">SEND MESSAGE</button>
                 </form>
             </div>
         </section>
     </div>
-
     <footer class="site-footer">
         <p>
             Copyright © <span id="copyright-year">2025</span> Dibya Prokash Sarkar, All Rights Reserved. 
             Made by Dibya Prokash Sarkar, on 🤖 with 💙
         </p>
     </footer>
-
     <button id="back-to-top" aria-label="Scroll back to top">↑</button>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/WebGL.js"></script>
