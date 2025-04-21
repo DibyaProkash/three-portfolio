@@ -275,56 +275,56 @@
         j1: {
             title: "I Am Here: Privacy Aware Support",
             authors: "Mohammad Kaosain Akbar, <strong>Dibya Prokash Sarkar</strong>, and Emrul Kaiser",
-            details: "2022. <em>International Journal for Research in Applied Science & Engineering Technology</em>, 10(ix), pp. 1162-1173.",
+            details: "<em>International Journal for Research in Applied Science & Engineering Technology</em>, 10(ix), pp. 1162-1173.",
             link: "https://d1wqtxts1xzle7.cloudfront.net/93940760/I_Am_Here_Privacy_Aware_Support-libre.pdf?1667988219=&response-content-disposition=inline%3B+filename%3DI_Am_Here_Privacy_Aware_Support.pdf&Expires=1745189455&Signature=Md1pEDqhWmU85q0QoZMrxJnpbDcwPCo53Uo~HQcqLRXCouNR598SeHYzKPeJNrIJO13OTozn6KkKsBnYhVuQ6msHdAZ3t2qG17dLyFbqwrO9UnLUWk5okcwjQpfdArWn7KXhlOBwIBNPkMv5rzs8FCi0Rc~AoSHybXM-un3zJ5zhnpZ1qyrhmXhRfPzfVbV2tKfgOZ4LzzdDgS2GvGcNBVIuW9DbjzZdM5XiTPeRUyQGBjk3RlXu2gjB8wvX48cuDDyYLv7G-83kzkYOE7kQX0yobpqUZpX1hcP4qwbV84rlldyLaeEiR9wU6zNKfY1muzXcoGeJEjVi8rWMluubXQ__&Key-Pair-Id=APKAJLOHF5GGSLRBV4ZA",
             linkText: "[Link]"
         },
         c1: {
             title: "Collaboration Dynamics in Constructive Physicalization of Shared Personal Data",
             authors: "<strong>Dibya Prokash Sarkar</strong>, Sowmya Somanath, and Charles Perin",
-            details: "2025. <em>51st Graphics Interface Conference (GI ’25)</em>",
+            details: "<em>51st Graphics Interface Conference (GI `25)</em>",
             link: "#",
             linkText: "[Appearing Soon!]"
         },
         c2: {
             title: "SHEBA: A Low-Cost Assistive Robot for Older Adults in the Developing World",
             authors: "Tamanna Motahar, Md. Fahim Farden, <strong>Dibya Prokash Sarkar</strong>, Md. Atiqul Islam, Maria E. Cabrera, and Maya Cakmak",
-            details: "2019. <em>2019 28th IEEE International Conference on Robot and Human Interactive Communication (RO-MAN)</em>",
+            details: "<em>2019 28th IEEE International Conference on Robot and Human Interactive Communication (RO-MAN)</em>",
             link: "https://ieeexplore.ieee.org/abstract/document/8956402",
             linkText: "[Link]"
         },
         c3: {
             title: "A Low-cost Healthcare Bot for Elderly People",
             authors: "<strong>Dibya Prokash Sarkar</strong>, Md. Fahim Farden, Md. Atiqul Islam, Rahat Jahangir Rony, and Tamanna Motahar",
-            details: "2018. <em>2019 Joint 8th International Conference on Informatics, Electronics & Vision (ICIEV) and 2019 3rd International Conference on Imaging, Vision & Pattern Recognition (icIVPR)</em>",
+            details: "<em>2019 Joint 8th International Conference on Informatics, Electronics & Vision (ICIEV) and 2019 3rd International Conference on Imaging, Vision & Pattern Recognition (icIVPR)</em>",
             link: "https://ieeexplore.ieee.org/abstract/document/8858567",
             linkText: "[Link]"
         },
         p1: {
             title: "Mini Nurse-Bot: A Healthcare Assistance for Elderly People",
             authors: "Tamanna Motahar, Md. Fahim Farden, Md. Atiqul Islam, Rahat Jahangir Rony, and <strong>Dibya Prokash Sarkar</strong>",
-            details: "2018. <em>2018 ACM International Joint Conference and 2018 International Symposium on Pervasive and Ubiquitous Computing and Wearable Computers (UbiComp '18)</em>",
+            details: "<em>2018 ACM International Joint Conference and 2018 International Symposium on Pervasive and Ubiquitous Computing and Wearable Computers (UbiComp '18)</em>",
             link: "https://dl.acm.org/doi/abs/10.1145/3267305.3267662",
             linkText: "[Link]"
         },
         w1: {
             title: "A Nurse Bot for Elderly People",
             authors: "<strong>Dibya Prokash Sarkar</strong>",
-            details: "2018. <em>2018 ACM International Joint Conference and 2018 International Symposium on Pervasive and Ubiquitous Computing and Wearable Computers (UbiComp '18)</em>",
+            details: "<em>2018 ACM International Joint Conference and 2018 International Symposium on Pervasive and Ubiquitous Computing and Wearable Computers (UbiComp '18)</em>",
             link: "https://dl.acm.org/doi/abs/10.1145/3267305.3277821",
             linkText: "[Link]"
         },
         t1: {
             title: "Understanding Shared Personal Data Constructive Physicalization Process",
             authors: "<strong>Dibya Prokash Sarkar</strong>",
-            details: "2024. MSc Thesis, University of Victoria, BC, Canada.",
+            details: "MSc Thesis, University of Victoria, BC, Canada.",
             link: "https://dspace.library.uvic.ca/items/439a0b05-bfff-4f44-85bd-98450f32b0ce",
             linkText: "[Link]"
         },
         t2: {
             title: "I Am Here: A Security Service Preserving Privacy",
             authors: "Mohammad Kaosain Akbar, <strong>Dibya Prokash Sarkar</strong>, Emrul Kaisar, Soufia Neli Roshni, and Nova Ahmed",
-            details: "2018. BSc Thesis, North South University, Dhaka, Bangladesh.",
+            details: "BSc Thesis, North South University, Dhaka, Bangladesh.",
             link: "#",
             linkText: "[Link Not Available]"
         }
