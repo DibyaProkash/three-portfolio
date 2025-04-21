@@ -450,7 +450,7 @@
                         <div class="contact-detail">
                             <i class="fas fa-map-marker-alt"></i>
                             <span>Location:</span>
-                            <p>Dhaka, Bangladesh</p>
+                            <p>Courtenay, BC, Canada</p>
                         </div>
                     </div>
                     <div class="social-links">
@@ -465,6 +465,7 @@
                         </a>
                     </div>
                 </div>
+
                 <form id="contact-form" action="https://formspree.io/f/mldjoqrw" method="POST" class="contact-form">
                     <div class="form-row">
                         <div class="form-group">
@@ -477,9 +478,14 @@
                     <div class="form-group">
                         <textarea id="message" name="message" placeholder="Your message" rows="5" required aria-label="Your message"></textarea>
                     </div>
-                    <div class="g-recaptcha" data-sitekey="6LfRMx8rAAAAAJVGYUB_ZAGlNDUMbiqHRy-fSw4x"></div>
+                    <!-- Honeypot field (hidden from users, visible to bots) -->
+                    <div style="display: none;">
+                        <input type="text" name="honeypot" id="honeypot" value="">
+                    </div>
+                    <div id="recaptcha-container" class="g-recaptcha"></div>
                     <button type="submit" class="submit-button">SEND MESSAGE</button>
                 </form>
+                    <!-- <div class="g-recaptcha" data-sitekey="6LfRMx8rAAAAAJVGYUB_ZAGlNDUMbiqHRy-fSw4x"></div> -->
             </div>
         </section>
     </div>
@@ -490,6 +496,7 @@
         </p>
     </footer>
     <button id="back-to-top" aria-label="Scroll back to top">↑</button>
+    <script src="js/config.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/WebGL.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/loaders/GLTFLoader.js"></script>

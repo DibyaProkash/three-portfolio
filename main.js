@@ -246,6 +246,14 @@
             const currentYear = new Date().getFullYear();
             copyrightYearSpan.textContent = currentYear;
         }
+
+        // Add reCAPTCHA dynamically
+        const recaptchaContainer = document.getElementById('recaptcha-container');
+        if (recaptchaContainer && typeof config !== 'undefined' && config.recaptchaSiteKey) {
+            recaptchaContainer.setAttribute('data-sitekey', config.recaptchaSiteKey);
+        } else {
+            console.error('reCAPTCHA Site Key not found or config.js not loaded.');
+        }
     });
 
     // Back to top
