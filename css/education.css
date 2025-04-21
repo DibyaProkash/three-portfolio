@@ -1,6 +1,6 @@
 /* Education Section */
 #education {
-    align-items: flex-start;
+    align-items: center;
 }
 
 .education-container {
@@ -12,116 +12,73 @@
     gap: 40px;
 }
 
-.timeline {
-    position: relative;
-    max-width: 100%; /* Make the timeline span the container */
-    margin: 0;
-    padding: 20px 0;
+.education-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 900px;
+    margin-top: 40px;
 }
 
-/* Central Timeline Line */
-.timeline::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 0;
-    width: 4px; /* Slightly thicker for visibility */
-    height: 100%;
-    background: #00ccff; /* Fallback */
-    background: var(--link-color);
-    transform: translateX(-50%);
-    transition: background 0.3s ease;
-}
-
-.timeline-item {
-    position: relative;
-    width: 50%;
-    padding: 30px;
-    box-sizing: border-box;
+.education-card {
+    display: flex;
+    align-items: center;
+    background: #2c3e50; /* Fallback */
+    background: var(--secondary-bg);
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #4a5e77; /* Fallback */
+    border: 1px solid var(--border-color);
+    box-shadow: 0 0 15px rgba(0, 204, 255, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, border 0.3s ease;
     opacity: 0;
+    transform: translateY(50px);
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
-.timeline-item:nth-child(odd) {
-    left: 0;
-    text-align: right;
-    transform: translateX(-50px); /* Start position for animation */
-}
-
-.timeline-item:nth-child(even) {
-    left: 50%;
-    text-align: left;
-    transform: translateX(50px); /* Start position for animation */
-}
-
-.timeline-item.visible {
+.education-card.visible {
     opacity: 1;
-    transform: translateX(0); /* End position for animation */
+    transform: translateY(0);
 }
 
-.timeline-item:nth-child(1).visible {
-    transition-delay: 0.2s;
+.education-card:nth-child(1).visible { transition-delay: 0.2s; }
+.education-card:nth-child(2).visible { transition-delay: 0.4s; }
+.education-card:nth-child(3).visible { transition-delay: 0.6s; }
+.education-card:nth-child(4).visible { transition-delay: 0.8s; }
+
+.education-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px rgba(0, 204, 255, 0.3);
 }
 
-.timeline-item:nth-child(2).visible {
-    transition-delay: 0.4s;
-}
-
-.timeline-item:nth-child(3).visible {
-    transition-delay: 0.6s;
-}
-
-.timeline-item:nth-child(4).visible {
-    transition-delay: 0.8s;
-}
-
-.timeline-date {
-    position: absolute;
-    top: 20px;
-    width: 100px;
-    height: 100px;
-    background: #00ccff; /* Fallback */
-    background: var(--link-color);
-    color: #000;
-    border-radius: 50%;
+.duration {
+    flex: 0 0 150px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1em;
     font-weight: bold;
+    color: #b0bec5;
+    background: rgba(0, 204, 255, 0.1);
+    border-radius: 8px;
+    padding: 10px;
     text-align: center;
-    line-height: 1.2;
-    box-shadow: 0 0 10px rgba(0, 204, 255, 0.5); /* Fallback */
-    box-shadow: 0 0 10px var(--shadow-color);
-    transition: all 0.3s ease;
+    transition: color 0.3s ease, background 0.3s ease;
 }
 
-.timeline-item:nth-child(odd) .timeline-date {
-    right: -50px; /* Position on the central line */
+body.light-mode .duration {
+    color: #6b7280;
+    background: rgba(0, 136, 170, 0.1);
 }
 
-.timeline-item:nth-child(even) .timeline-date {
-    left: -50px; /* Position on the central line */
+.education-details {
+    flex: 1;
+    padding: 0 20px;
+    text-align: center;
 }
 
-.timeline-content {
-    background: #2c3e50; /* Fallback */
-    background: var(--secondary-bg);
-    padding: 25px; /* Increased padding for a cleaner look */
-    border-radius: 12px; /* Slightly larger border-radius */
-    border: 1px solid #4a5e77; /* Fallback */
-    border: 1px solid var(--border-color);
-    min-width: 250px; /* Slightly wider for better spacing */
-    box-shadow: 0 4px 15px rgba(0, 204, 255, 0.2); /* Elevation effect */
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, border 0.3s ease;
-}
-
-.timeline-content:hover {
-    transform: translateY(-5px); /* Hover effect: slight lift */
-    box-shadow: 0 6px 20px rgba(0, 204, 255, 0.3); /* Enhanced shadow on hover */
-}
-
-.timeline-content h3 {
+.education-details h3 {
     font-size: 1.8em;
     margin: 0 0 0.5em;
     color: #00ccff; /* Fallback */
@@ -129,35 +86,61 @@
     transition: color 0.3s ease;
 }
 
-.timeline-content .detail {
+.education-details .detail {
     margin: 10px 0;
     color: #b0bec5;
     line-height: 1.6;
     transition: color 0.3s ease;
     display: flex;
-    align-items: center;
+    justify-content: center;
     gap: 10px;
 }
 
-.timeline-content .detail-label {
+.education-details .detail-label {
     font-weight: bold;
     color: #fff; /* Labels in white for contrast */
     display: inline-block;
     min-width: 120px; /* Ensure consistent alignment */
 }
 
-.timeline-content .detail-text {
+.education-details .detail-text {
     color: #b0bec5;
 }
 
-.timeline-content .detail:not(:last-child) {
+.education-details .detail:not(:last-child) {
     border-bottom: 1px solid #4a5e77; /* Separator between details */
     border-bottom: 1px solid var(--border-color);
     padding-bottom: 10px;
 }
 
-body.light-mode .timeline-content .detail-text {
+body.light-mode .education-details .detail-text {
     color: #6b7280;
+}
+
+.logo-container {
+    flex: 0 0 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.university-logo {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 0; /* Changed to square shape */
+    border: 2px solid #00ccff; /* Fallback */
+    border: 2px solid var(--link-color);
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 204, 255, 0.5); /* Fallback */
+    box-shadow: 0 0 10px var(--shadow-color);
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.light-mode .university-logo {
+    border: 2px solid #0088aa; /* Matches --link-color in light mode */
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 136, 170, 0.5); /* Matches --shadow-color in light mode */
 }
 
 /* Responsive Design */
@@ -167,46 +150,82 @@ body.light-mode .timeline-content .detail-text {
         align-items: center;
     }
 
-    .timeline {
+    .education-list {
         max-width: 100%;
     }
 
-    .timeline::before {
-        left: 20px;
-    }
-
-    .timeline-item {
-        width: 100%;
-        text-align: left;
-        left: 0 !important;
-        padding-left: 60px;
-        padding-right: 20px;
-        transform: translateX(0); /* Reset transform for mobile */
-    }
-
-    .timeline-item.visible {
-        transform: translateX(0);
-    }
-
-    .timeline-item:nth-child(odd) .timeline-date,
-    .timeline-item:nth-child(even) .timeline-date {
-        left: -40px;
-        width: 80px;
-        height: 80px;
-        font-size: 0.9em;
-    }
-
-    .timeline-content {
-        min-width: 100%; /* Full width on mobile */
-    }
-
-    .timeline-content .detail {
+    .education-card {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
+    }
+
+    .duration {
+        flex: none;
+        width: 100%;
+        margin-bottom: 10px;
+        border-radius: 8px 8px 0 0;
+    }
+
+    .education-details {
+        padding: 0;
+        margin-bottom: 10px;
+    }
+
+    .logo-container {
+        flex: none;
+    }
+
+    .education-details .detail {
+        flex-direction: column;
+        align-items: center;
         gap: 5px;
     }
 
-    .timeline-content .detail-label {
+    .education-details .detail-label {
         min-width: auto;
+    }
+
+    .university-logo {
+        width: 70px;
+        height: 70px;
+    }
+}
+
+@media (max-width: 768px) {
+    .education-details h3 {
+        font-size: 1.5em;
+    }
+
+    .duration {
+        font-size: 0.9em;
+        padding: 8px;
+    }
+
+    .education-details .detail {
+        font-size: 0.9em;
+    }
+
+    .university-logo {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .education-details h3 {
+        font-size: 1.3em;
+    }
+
+    .duration {
+        font-size: 0.85em;
+    }
+
+    .education-details .detail {
+        font-size: 0.85em;
+    }
+
+    .university-logo {
+        width: 50px;
+        height: 50px;
     }
 }

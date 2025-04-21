@@ -104,74 +104,113 @@
     }
     typeRole();
 
-    // Tilt effect
-    const tiltableElements = document.querySelectorAll('.tiltable');
-    tiltableElements.forEach(element => {
-        element.addEventListener('mousemove', (event) => {
-            const rect = element.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
-            const mouseX = event.clientX - centerX;
-            const mouseY = event.clientY - centerY;
-            const tiltX = (mouseY / rect.height) * 10;
-            const tiltY = -(mouseX / rect.width) * 10;
-            element.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
-        });
-        element.addEventListener('mouseleave', () => {
-            element.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
-        });
-    });
-
-    // Skills animation
-    document.querySelectorAll('.skill-card').forEach(card => {
-        const level = card.dataset.level;
-        const progress = card.querySelector('.progress');
-        if (progress) {
-            progress.style.width = `${level}%`;
-        }
-    });
-
-    // Experience expandable animation
-    const experienceItems = document.querySelectorAll('.experience-item');
-    experienceItems.forEach(item => {
-        const skills = item.getAttribute('data-skills').split(', ');
-        const projectList = item.querySelector('.project-list');
-        fetch('data/projects.json').then(response => response.json()).then(projects => {
-            const projectsForSkills = projects.filter(project =>
-                project.categories.some(category => skills.includes(category))
-            );
-            projectsForSkills.forEach(project => {
-                const li = document.createElement('li');
-                li.textContent = project.name;
-                projectList.appendChild(li);
+    // Wait for DOM to load before adding event listeners
+    document.addEventListener('DOMContentLoaded', () => {
+        // Tilt effect
+        const tiltableElements = document.querySelectorAll('.tiltable');
+        console.log('Tiltable elements found:', tiltableElements.length);
+        tiltableElements.forEach(element => {
+            element.addEventListener('mousemove', (event) => {
+                const rect = element.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                const mouseX = event.clientX - centerX;
+                const mouseY = event.clientY - centerY;
+                const tiltX = (mouseY / rect.height) * 10;
+                const tiltY = -(mouseX / rect.width) * 10;
+                element.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
             });
-        }).catch(error => {
-            console.error('Error loading projects for experience:', error);
+            element.addEventListener('mouseleave', () => {
+                element.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+            });
         });
 
-        const projectsContainer = item.querySelector('.experience-projects');
-        let isExpanded = false;
+        // Poke effect for hero image
+        const pokeableElements = document.querySelectorAll('.pokeable');
+        console.log('Pokeable elements found:', pokeableElements.length);
+        pokeableElements.forEach(element => {
+            element.addEventListener('click', () => {
+                element.classList.remove('poked');
+                void element.offsetWidth;
+                element.classList.add('poked');
+            });
 
-        item.addEventListener('click', () => {
-            isExpanded = !isExpanded;
-            if (isExpanded) {
-                projectsContainer.style.display = 'block';
-                anime({
-                    targets: projectsContainer,
-                    height: 'auto',
-                    opacity: 1,
-                    duration: 500,
-                    easing: 'easeInOutQuad'
+            element.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === 'Space') {
+                    e.preventDefault();
+                    element.classList.remove('poked');
+                    void element.offsetWidth;
+                    element.classList.add('poked');
+                }
+            });
+        });
+
+        // Skills animation
+        document.querySelectorAll('.skill-card').forEach(card => {
+            const level = card.dataset.level;
+            const progress = card.querySelector('.progress');
+            if (progress) {
+                progress.style.width = `${level}%`;
+            }
+        });
+
+        // Experience expandable animation
+        const experienceItems = document.querySelectorAll('#experience .timeline-item');
+        console.log('Experience timeline items found:', experienceItems.length);
+        experienceItems.forEach(item => {
+            const role = item.querySelector('h3').textContent.trim();
+            const company = item.querySelector('.company').textContent.trim();
+            const courseList = item.querySelector('.course-list');
+            const coursesContainer = item.querySelector('.experience-courses');
+            let isExpanded = false;
+
+            // Fetch and populate courses
+            if (courseList) {
+                fetch('data/courses.json').then(response => response.json()).then(courses => {
+                    const coursesForRole = courses.find(courseEntry =>
+                        courseEntry.role === role && courseEntry.company === company
+                    );
+                    if (coursesForRole) {
+                        coursesForRole.courses.forEach(course => {
+                            const li = document.createElement('li');
+                            li.textContent = course;
+                            courseList.appendChild(li);
+                        });
+                    }
+                }).catch(error => {
+                    console.error('Error loading courses for experience:', error);
                 });
-            } else {
-                anime({
-                    targets: projectsContainer,
-                    height: 0,
-                    opacity: 0,
-                    duration: 500,
-                    easing: 'easeInOutQuad',
-                    complete: () => {
-                        projectsContainer.style.display = 'none';
+            }
+
+            // Only add click event if there is a courses container to expand
+            if (coursesContainer) {
+                item.addEventListener('click', (e) => {
+                    // Prevent click on course list items from toggling
+                    if (e.target.closest('.course-list')) return;
+
+                    isExpanded = !isExpanded;
+                    if (isExpanded) {
+                        coursesContainer.style.display = 'block';
+                        anime({
+                            targets: coursesContainer,
+                            height: coursesContainer.scrollHeight,
+                            opacity: 1,
+                            translateY: [20, 0],
+                            duration: 600,
+                            easing: 'easeOutExpo'
+                        });
+                    } else {
+                        anime({
+                            targets: coursesContainer,
+                            height: 0,
+                            opacity: 0,
+                            translateY: [0, 20],
+                            duration: 600,
+                            easing: 'easeInExpo',
+                            complete: () => {
+                                coursesContainer.style.display = 'none';
+                            }
+                        });
                     }
                 });
             }
@@ -340,7 +379,7 @@
     const documentHeight = document.documentElement.scrollHeight - viewportHeight;
 
     function updateSectionVisibility() {
-        console.log('updateSectionVisibility called'); // Debug log to confirm scroll event
+        console.log('updateSectionVisibility called');
 
         const sections = document.querySelectorAll('section');
         let activeSection = null;
@@ -384,17 +423,30 @@
             }
         });
 
-        // Debugging log
         console.log('Scroll Y:', scrollY, 'Home Visible:', document.querySelector('#home').classList.contains('visible'));
 
         const scrollProgress = Math.max(0, Math.min(1, scrollY / (documentHeight * 0.5)));
         const easedProgress = 1 - Math.pow(1 - scrollProgress, 2);
         updateScene(scrollProgress, easedProgress);
 
-        // Animate timeline items in Education section
+        // Animate cards in Education section
         const educationSection = document.querySelector('#education');
         if (educationSection.classList.contains('visible')) {
-            const timelineItems = document.querySelectorAll('.timeline-item');
+            const educationCards = educationSection.querySelectorAll('.education-card');
+            educationCards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    card.classList.add('visible');
+                } else {
+                    card.classList.remove('visible');
+                }
+            });
+        }
+
+        // Animate timeline items in Experience section
+        const experienceSection = document.querySelector('#experience');
+        if (experienceSection.classList.contains('visible')) {
+            const timelineItems = experienceSection.querySelectorAll('.timeline-item');
             timelineItems.forEach(item => {
                 const rect = item.getBoundingClientRect();
                 if (rect.top < window.innerHeight && rect.bottom > 0) {

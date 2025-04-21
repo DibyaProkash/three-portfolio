@@ -1,0 +1,23 @@
+[
+    {
+        "role": "Instructor",
+        "company": "North Island College",
+        "courses": [
+            "DGL 103: HTML and CSS",
+            "DGL 104: App Development Foundation",
+            "DGL 123: Introduction to PHP",
+            "DGL 213: Applied JavaScript",
+            "DGL 233: Advanced CSS",
+            "DGL 113: Introduction to JavaScript",
+            "DGL 114: Introduction to Mobile App Development"
+        ]
+    },
+    {
+        "role": "Graduate Teaching Assistant",
+        "company": "University of Victoria",
+        "courses": [
+            "SENG310: Human Computer Interaction",
+            "CSC485E/CSC586B: Designing Creativity Support Tools"
+        ]
+    }
+]

@@ -1,159 +1,67 @@
-/* Theme Variables */
-:root {
-    --background-color: #1a2634; /* Softer dark background (not pure black) */
-    --text-color: #e0e6ed; /* Light gray for better readability in dark mode */
-    --card-bg: #c0c0c0; /* Card background */
-    --card-text: #00cc55; /* Darkened for better contrast */
-    --card-text-secondary: #00b84a; /* Adjusted for contrast */
-    --meta-text: #00a33f; /* Adjusted for contrast */
-    --button-bg: linear-gradient(45deg, #00ccff, #00e6ff); /* Button background */
-    --button-border: #00ccff; /* Button border */
-    --button-border-top-left: #00e6ff; /* Button border top/left */
-    --button-border-bottom-right: #0088aa; /* Button border bottom/right */
-    --button-text: #0a1a2f; /* Button text color */
-    --link-color: #00ccff; /* Link color */
-    --link-hover: #00e6ff; /* Link hover color */
-    --shadow-color: rgba(0, 204, 255, 0.5); /* Shadow color */
-    --dropdown-text: #e0e6ed; /* Dropdown text color in dark mode */
-    --secondary-bg: #2c3e50; /* Secondary background for cards, dropdowns, etc. */
-    --border-color: #4a5e77; /* Softer border color for dark mode */
-}
-
-body.light-mode {
-    --background-color: #f5f7fa; /* Light mode background (soft white) */
-    --text-color: #2c3e50; /* Dark gray for better contrast in light mode */
-    --card-bg: #e0e0e0; /* Light mode card background */
-    --card-text: #006600; /* Light mode card text color */
-    --card-text-secondary: #008800; /* Light mode card secondary text color */
-    --meta-text: #005500; /* Light mode meta info text color */
-    --button-bg: linear-gradient(45deg, #00aaff, #00c4ff); /* Light mode button background */
-    --button-border: #00aaff; /* Light mode button border */
-    --button-border-top-left: #00c4ff; /* Light mode button border top/left */
-    --button-border-bottom-right: #0077aa; /* Light mode button border bottom/right */
-    --button-text: #ffffff; /* Light mode button text color */
-    --link-color: #0077aa; /* Light mode link color */
-    --link-hover: #0099cc; /* Light mode link hover color */
-    --shadow-color: rgba(0, 154, 204, 0.5); /* Light mode shadow color */
-    --dropdown-text: #2c3e50; /* Dropdown text color in light mode */
-    --secondary-bg: #ffffff; /* Secondary background for light mode */
-    --border-color: #d1d9e6; /* Light mode border color */
-}
-
+/* Reset default styles */
 body {
     margin: 0;
+    padding: 0;
     font-family: 'Orbitron', Arial, sans-serif;
     background: #1a2634; /* Fallback */
     background: var(--background-color);
     color: #e0e6ed; /* Fallback */
     color: var(--text-color);
+    transition: background 0.5s ease, color 0.5s ease;
     overflow-x: hidden;
-    transition: background 0.3s ease, color 0.3s ease;
-}
-
-#canvas-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -1;
-    background: #000000; /* Fallback for WebGL failure */
-}
-
-#side-nav {
-    position: fixed;
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    z-index: 10;
-}
-
-.nav-bullet {
-    width: 12px;
-    height: 12px;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.nav-bullet.active {
-    width: 16px;
-    height: 16px;
-    background: #00ccff; /* Fallback */
-    background: var(--link-color);
-    box-shadow: 0 0 10px rgba(0, 204, 255, 0.5); /* Fallback */
-    box-shadow: 0 0 10px var(--shadow-color);
-}
-
-.nav-bullet:hover {
-    background: #00e6ff; /* Fallback */
-    background: var(--link-hover);
-    transform: scale(1.2);
-}
-
-#theme-toggle {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: linear-gradient(45deg, #00ccff, #00e6ff); /* Fallback */
-    background: var(--button-bg);
-    color: #0a1a2f; /* Fallback */
-    color: var(--button-text);
-    border: 2px solid #00ccff; /* Fallback */
-    border: 2px solid var(--button-border);
-    border-top: 2px solid #00e6ff; /* Fallback */
-    border-top: 2px solid var(--button-border-top-left);
-    border-left: 2px solid #00e6ff; /* Fallback */
-    border-left: 2px solid var(--button-border-top-left);
-    border-right: 2px solid #0088aa; /* Fallback */
-    border-right: 2px solid var(--button-border-bottom-right);
-    border-bottom: 2px solid #0088aa; /* Fallback */
-    border-bottom: 2px solid var(--button-border-bottom-right);
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2em;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    z-index: 100;
-}
-
-#theme-toggle:hover {
-    background: linear-gradient(45deg, #00e6ff, #00ccff); /* Fallback */
-    background: linear-gradient(45deg, var(--link-hover), var(--link-color));
-    transform: scale(1.1);
-}
-
-#theme-toggle:focus {
-    outline: none;
-    box-shadow: 0 0 5px #00ccff; /* Fallback */
-    box-shadow: 0 0 5px var(--link-color);
 }
 
 #content {
-    position: relative;
-    z-index: 1;
-    padding: 40px;
+    margin: 0;
+    padding: 0;
 }
 
+/* Theme variables */
+:root {
+    --background-color: #1a2634;
+    --secondary-bg: #2c3e50;
+    --text-color: #e0e6ed;
+    --secondary-text: #b0bec5;
+    --link-color: #00ccff;
+    --link-hover: #00e6ff;
+    --border-color: #4a5e77;
+    --shadow-color: rgba(0, 204, 255, 0.5);
+    --button-bg: linear-gradient(45deg, #00ccff, #00e6ff);
+    --button-text: #0a1a2f;
+    --button-border: #00ccff;
+    --button-border-top-left: #00e6ff;
+    --button-border-bottom-right: #0088aa;
+}
+
+/* Light mode variables */
+body.light-mode {
+    --background-color: #e0e6ed;
+    --secondary-bg: #ffffff;
+    --text-color: #2c3e50;
+    --secondary-text: #6b7280;
+    --link-color: #0088aa;
+    --link-hover: #00aacc;
+    --border-color: #b0bec5;
+    --shadow-color: rgba(0, 136, 170, 0.5);
+    --button-bg: linear-gradient(45deg, #0088aa, #00aacc);
+    --button-text: #ffffff;
+    --button-border: #0088aa;
+    --button-border-top-left: #00aacc;
+    --button-border-bottom-right: #006688;
+}
+
+/* General section styles */
 section {
+    padding: 60px 20px;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    text-align: center;
-    padding: 60px 20px;
+    align-items: center;
+    box-sizing: border-box;
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transform: translateY(50px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
 }
 
 section.visible {
@@ -162,87 +70,193 @@ section.visible {
 }
 
 h2 {
-    font-size: 3.5em;
+    font-size: 2.5em;
     font-weight: 700;
-    margin: 0.5em 0;
-    text-transform: uppercase;
-    opacity: 0;
-    transform: translateY(50px);
-    transition: all 1s ease-out;
+    color: #00ccff; /* Fallback */
+    color: var(--link-color);
+    margin-bottom: 40px;
+    text-shadow: 0 0 10px rgba(0, 204, 255, 0.5); /* Fallback */
+    text-shadow: 0 0 10px var(--shadow-color);
+    transition: color 0.3s ease;
 }
 
-section.visible h2 {
-    opacity: 1;
-    transform: translateY(0);
+body.light-mode h2 {
+    color: #0088aa; /* Matches --link-color in light mode */
 }
 
-/* Back to Top Button */
+/* Side navigation */
+#side-nav {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.nav-bullet {
+    width: 12px;
+    height: 12px;
+    background: #4a5e77; /* Fallback */
+    background: var(--border-color);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.nav-bullet:hover {
+    background: #00ccff; /* Fallback */
+    background: var(--link-color);
+    transform: scale(1.2);
+}
+
+.nav-bullet.active {
+    background: #00ccff; /* Fallback */
+    background: var(--link-color);
+    transform: scale(1.5);
+}
+
+body.light-mode .nav-bullet {
+    background: #b0bec5; /* Matches --border-color in light mode */
+}
+
+body.light-mode .nav-bullet:hover,
+body.light-mode .nav-bullet.active {
+    background: #0088aa; /* Matches --link-color in light mode */
+}
+
+/* Theme toggle button */
+#theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    color: #00ccff; /* Fallback */
+    color: var(--link-color);
+    cursor: pointer;
+    z-index: 1000;
+    transition: color 0.3s ease;
+}
+
+#theme-toggle:hover {
+    color: #00e6ff; /* Fallback */
+    color: var(--link-hover);
+}
+
+body.light-mode #theme-toggle {
+    color: #0088aa; /* Matches --link-color in light mode */
+}
+
+body.light-mode #theme-toggle:hover {
+    color: #00aacc; /* Matches --link-hover in light mode */
+}
+
+/* Back to top button */
 #back-to-top {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(45deg, #00ccff, #00e6ff); /* Fallback */
-    background: var(--button-bg);
-    color: #0a1a2f; /* Fallback */
-    color: var(--button-text);
-    border: 2px solid #00ccff; /* Fallback */
-    border: 2px solid var(--button-border);
-    border-top: 2px solid #00e6ff; /* Fallback */
-    border-top: 2px solid var(--button-border-top-left);
-    border-left: 2px solid #00e6ff; /* Fallback */
-    border-left: 2px solid var(--button-border-top-left);
-    border-right: 2px solid #0088aa; /* Fallback */
-    border-right: 2px solid var(--button-border-bottom-right);
-    border-bottom: 2px solid #0088aa; /* Fallback */
-    border-bottom: 2px solid var(--button-border-bottom-right);
+    bottom: 20px;
+    right: 20px;
+    background: #00ccff; /* Fallback */
+    background: var(--link-color);
+    color: #1a2634; /* Fallback */
+    color: var(--background-color);
+    border: none;
     border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.5em;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5em;
     cursor: pointer;
     opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    z-index: 10;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+    z-index: 1000;
 }
 
 #back-to-top.visible {
     opacity: 1;
-    visibility: visible;
+    transform: translateY(0);
 }
 
 #back-to-top:hover {
-    background: linear-gradient(45deg, #00e6ff, #00ccff); /* Fallback */
-    background: linear-gradient(45deg, var(--link-hover), var(--link-color));
-    box-shadow: 0 0 10px rgba(0, 204, 255, 0.5); /* Fallback */
-    box-shadow: 0 0 10px var(--shadow-color), 0 0 20px var(--shadow-color);
-    transform: scale(1.1);
+    background: #00e6ff; /* Fallback */
+    background: var(--link-hover);
 }
 
-#back-to-top:focus {
-    outline: none;
-    box-shadow: 0 0 5px #00ccff; /* Fallback */
-    box-shadow: 0 0 5px var(--link-color);
+body.light-mode #back-to-top {
+    background: #0088aa; /* Matches --link-color in light mode */
+    color: #e0e6ed; /* Matches --background-color in light mode */
 }
 
-/* Responsive Design (Global Rules Only) */
-@media (max-width: 1024px) {
-    h2 {
-        font-size: 2.5em;
-    }
+body.light-mode #back-to-top:hover {
+    background: #00aacc; /* Matches --link-hover in light mode */
 }
 
+/* Canvas container for Three.js */
+#canvas-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
+    section {
+        padding: 40px 15px;
+    }
+
     h2 {
         font-size: 2em;
+    }
+
+    #side-nav {
+        right: 10px;
+    }
+
+    .nav-bullet {
+        width: 10px;
+        height: 10px;
+    }
+
+    #theme-toggle {
+        top: 10px;
+        right: 10px;
+        font-size: 1.2em;
+    }
+
+    #back-to-top {
+        width: 35px;
+        height: 35px;
+        font-size: 1.2em;
+        bottom: 10px;
+        right: 10px;
     }
 }
 
 @media (max-width: 480px) {
+    section {
+        padding: 30px 10px;
+    }
+
     h2 {
         font-size: 1.5em;
+    }
+
+    #side-nav {
+        right: 5px;
+    }
+
+    .nav-bullet {
+        width: 8px;
+        height: 8px;
     }
 }

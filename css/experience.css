@@ -1,88 +1,265 @@
 /* Experience Section */
-.experience-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 100%;
+.timeline {
+    position: relative;
     max-width: 800px;
-    margin-top: 40px;
+    width: 100%;
+    margin: 40px auto;
+    padding: 0 20px;
 }
 
-.experience-item {
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 4px;
+    background: #4a5e77; /* Fallback */
+    background: var(--border-color);
+    transform: translateX(-50%);
+    z-index: 0;
+}
+
+.timeline-item {
+    position: relative;
+    width: 50%;
+    margin-bottom: 40px;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.timeline-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.timeline-item:nth-child(1).visible { transition-delay: 0.3s; }
+.timeline-item:nth-child(2).visible { transition-delay: 0.5s; }
+.timeline-item:nth-child(3).visible { transition-delay: 0.7s; }
+.timeline-item:nth-child(4).visible { transition-delay: 0.9s; }
+.timeline-item:nth-child(5).visible { transition-delay: 1.1s; }
+.timeline-item:nth-child(6).visible { transition-delay: 1.3s; }
+
+/* Alternate left and right positioning */
+.timeline-item:nth-child(odd) {
+    left: 0;
+    text-align: right;
+}
+
+.timeline-item:nth-child(even) {
+    left: 50%;
+    text-align: left;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    top: 20px; /* Center vertically with the card */
+    width: 20px;
+    height: 20px;
+    background: #00ccff; /* Fallback */
+    background: var(--link-color); /* Cyan to match theme */
+    border: 2px solid #fff;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.timeline-item:nth-child(odd)::before {
+    right: -10px; /* Position on the timeline */
+}
+
+.timeline-item:nth-child(even)::before {
+    left: -10px;
+}
+
+.timeline-content {
     background: #2c3e50; /* Fallback */
-    background: var(--secondary-bg);
+    background: var(--secondary-bg); /* Match theme */
     padding: 20px;
     border-radius: 10px;
     border: 1px solid #4a5e77; /* Fallback */
     border: 1px solid var(--border-color);
-    transition: background 0.3s ease, border 0.3s ease;
-    cursor: pointer; /* Indicate clickable */
+    box-shadow: 0 0 15px rgba(0, 204, 255, 0.2);
+    transition: background 0.3s ease, border 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
 }
 
-.experience-item h3 {
+.timeline-item:nth-child(odd) .timeline-content {
+    margin-right: 40px; /* Space between card and timeline */
+}
+
+.timeline-item:nth-child(even) .timeline-content {
+    margin-left: 40px;
+}
+
+.timeline-content:hover {
+    box-shadow: 0 0 25px rgba(0, 204, 255, 0.3);
+}
+
+.timeline-content h3 {
     font-size: 1.5em;
     color: #00ccff; /* Fallback */
-    color: var(--link-color);
-    margin: 0 0 0.3em;
+    color: var(--link-color); /* Cyan to match theme */
+    margin: 0 0 0.2em;
     transition: color 0.3s ease;
 }
 
-.experience-item .details {
-    font-size: 1em;
-    color: #b0bec5;
-    margin: 0 0 1em;
+.timeline-content .company {
+    font-size: 1.1em;
+    color: #b0bec5; /* Secondary text color */
+    margin: 0 0 0.2em;
     transition: color 0.3s ease;
 }
 
-body.light-mode .experience-item .details {
+body.light-mode .timeline-content .company {
     color: #6b7280;
 }
 
-.experience-item .description {
+.timeline-content .duration {
     font-size: 1em;
-    color: #b0bec5;
+    color: #b0bec5; /* Secondary text color */
+    margin: 0 0 0.5em;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+body.light-mode .timeline-content .duration {
+    color: #6b7280;
+}
+
+.timeline-content .description {
+    font-size: 1em;
+    color: #e0e6ed; /* Fallback */
+    color: var(--text-color); /* Light gray to match theme */
     margin: 0;
     transition: color 0.3s ease;
 }
 
-body.light-mode .experience-item .description {
+body.light-mode .timeline-content .description {
     color: #6b7280;
 }
 
-.experience-projects {
+.experience-courses {
     margin-top: 10px;
     padding: 10px;
-    background: rgba(255, 255, 255, 0.05); /* Slight contrast */
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 5px;
     overflow: hidden;
 }
 
-.experience-projects h4 {
+.experience-courses h4 {
     font-size: 1.2em;
     color: #00ccff; /* Fallback */
     color: var(--link-color);
     margin: 0 0 0.5em;
+    transition: color 0.3s ease;
 }
 
-.experience-projects .project-list {
+.experience-courses .course-list {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.experience-projects .project-list li {
+.experience-courses .course-list li {
     font-size: 1em;
     color: #e0e6ed; /* Fallback */
     color: var(--text-color);
     margin-bottom: 0.5em;
     padding-left: 1em;
     position: relative;
+    transition: color 0.3s ease;
 }
 
-.experience-projects .project-list li:before {
+.experience-courses .course-list li:before {
     content: "•";
     color: #00ccff; /* Fallback */
     color: var(--link-color);
     position: absolute;
     left: 0;
+    transition: color 0.3s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .timeline::before {
+        left: 20px;
+    }
+
+    .timeline-item {
+        width: 100%;
+        left: 0 !important;
+        text-align: left;
+    }
+
+    .timeline-item::before {
+        left: 10px;
+        right: auto;
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content,
+    .timeline-item:nth-child(even) .timeline-content {
+        margin-left: 40px;
+        margin-right: 20px;
+    }
+
+    .timeline-content h3 {
+        font-size: 1.3em;
+    }
+
+    .timeline-content .company {
+        font-size: 1em;
+    }
+
+    .timeline-content .duration {
+        font-size: 0.9em;
+    }
+
+    .experience-courses h4 {
+        font-size: 1.1em;
+    }
+
+    .experience-courses .course-list li {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    .timeline::before {
+        left: 15px;
+    }
+
+    .timeline-item::before {
+        left: 5px;
+        width: 16px;
+        height: 16px;
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content,
+    .timeline-item:nth-child(even) .timeline-content {
+        margin-left: 30px;
+        margin-right: 15px;
+        padding: 15px;
+    }
+
+    .timeline-content h3 {
+        font-size: 1.1em;
+    }
+
+    .timeline-content .company {
+        font-size: 0.9em;
+    }
+
+    .timeline-content .duration {
+        font-size: 0.85em;
+    }
+
+    .experience-courses h4 {
+        font-size: 1em;
+    }
+
+    .experience-courses .course-list li {
+        font-size: 0.85em;
+    }
 }
