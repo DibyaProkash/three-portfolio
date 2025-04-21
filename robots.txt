@@ -1,2 +1,4 @@
 User-agent: *
-Disallow: /assets/
+Disallow: /assets/  # Prevent crawling of your assets folder (images, PDFs, etc.)
+Disallow: /data/    # Prevent crawling of your data folder (e.g., courses.json)
+Allow: /

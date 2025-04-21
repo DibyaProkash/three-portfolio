@@ -208,6 +208,24 @@ body.light-mode #back-to-top:hover {
     z-index: 0;
 }
 
+/* Footer styles */
+.site-footer {
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 40px;
+    font-size: 0.9em;
+    color: #b0bec5; /* Secondary text color */
+    transition: color 0.3s ease;
+}
+
+body.light-mode .site-footer {
+    color: #6b7280;
+}
+
+.site-footer p {
+    margin: 0;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     section {

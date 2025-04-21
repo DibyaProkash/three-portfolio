@@ -70,7 +70,7 @@
     });
 
     // Animated role text
-    const roles = ['full stack', 'researcher', 'developer', 'designer', 'innovator'];
+    const roles = ['full stack developer', 'HCI researcher', 'designer', 'innovator', 'photographer'];
     let currentRoleIndex = 0;
     let currentCharIndex = 0;
     let isDeleting = false;
@@ -215,6 +215,37 @@
                 });
             }
         });
+
+        // Social media link click monitoring
+        const socialLinks = document.querySelectorAll('.social-links a');
+        const clickTimestamps = [];
+        const clickThreshold = 5; // Max clicks allowed in a short period
+        const timeWindow = 10000; // 10 seconds window
+
+        socialLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                const currentTime = Date.now();
+                clickTimestamps.push(currentTime);
+
+                // Remove timestamps older than the time window
+                while (clickTimestamps.length > 0 && currentTime - clickTimestamps[0] > timeWindow) {
+                    clickTimestamps.shift();
+                }
+
+                // Check for rapid clicks
+                if (clickTimestamps.length > clickThreshold) {
+                    console.warn('Suspicious click activity detected on social media links. Possible bot attack.');
+                    // Optionally, you could disable links temporarily or alert the user
+                }
+            });
+        });
+
+        // Dynamically set the copyright year
+        const copyrightYearSpan = document.getElementById('copyright-year');
+        if (copyrightYearSpan) {
+            const currentYear = new Date().getFullYear();
+            copyrightYearSpan.textContent = currentYear;
+        }
     });
 
     // Back to top
